@@ -73,7 +73,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
-      with:
-        publish_dir: ./public # This is the folder Hugo generates the site in
-        github_token: ${{ secrets.GITHUB_TOKEN }} # Token to authenticate with GitHub
+        with:
+          publish_dir: ./public # This is the folder Hugo generates the site in
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Token to authenticate with GitHub
 
