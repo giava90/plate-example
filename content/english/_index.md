@@ -12,7 +12,7 @@ banner:
 # Features
 features:
   - title: "Agent-based modelling"
-    image: "/images/service-1.png"
+    image: "/images/multi-layer-horizontal-fs9.png"
     content: "Agent-based modeling is a computational approach that simulates interactions of autonomous agents (individuals or entities) to assess their collective impact on complex systems, commonly applied in socio-economic and socio-ecological contexts."
     bulletpoints:
       - "Reveals emergent system behaviors."
@@ -37,16 +37,16 @@ features:
       label: "Get Started Now"
       link: "https://github.com/zeon-studio/hugoplate"
 
-  # - title: "Supply chain"
-  #   image: "/images/service-3.png"
-  #   content: "With Hugo, you can build modern and content-focused websites without sacrificing performance or ease of use."
-  #   bulletpoints:
-  #     - "Instantly load static sites for better user experience and SEO."
-  #     - "Intuitive syntax and support for popular frameworks make learning and using Hugo a breeze."
-  #     - "Use any front-end library or framework, or build custom components, for any project size."
-  #     - "Built on cutting-edge technology to keep your projects up-to-date with the latest web standards."
-  #   button:
-  #     enable: false
-  #     label: ""
-  #     link: ""
+  - title: "Supply chain"
+    image: "/images/supplychain.webp"
+    content: "Supply chain systems integrate processes, resources, and stakeholders to ensure the efficient flow of goods and services. It emphasizes optimization and sustainability in modern networks."
+    bulletpoints:
+      - "Enhances transparency across complex supply networks."
+      - "Supports sustainability by reducing waste and emissions."
+      - "Improves efficiency through optimized logistics and processes."
+      - "Adapts to disruptions with resilient and flexible strategies."
+    button:
+      enable: false
+      label: ""
+      link: ""
 ---
