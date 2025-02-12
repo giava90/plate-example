@@ -11,6 +11,53 @@ name = "About"
 url = "/about"
 weight = 2
 
+[[main]]
+weight = 5
+name = "Publications"
+url = "/publications"
+
+[[main]]
+weight = 3
+name = "Research"
+
+[[main]]
+weight = 4
+name = "Teaching"
+
+[[main]]
+weight = 4
+name = "Giacomo Vaccario"
+
+[[main]]
+parent = "Research"
+name = "Supply Chain"
+url = "/sp"
+
+[[main]]
+parent = "Research"
+name = "Networks"
+url = "/networks"
+
+[[main]]
+parent = "Research"
+name = "Agent-based models"
+url = "/abm"
+
+[[main]]
+parent = "Research"
+name = "Science of Science"
+url = "/sos"
+
+[[main]]
+parent = "Teaching"
+name = "Agent-based models"
+url = "/course-abm"
+
+[[main]]
+parent = "Teaching"
+name = "System Thinking"
+url = "/course-st"
+
 
 
 # footer menu
