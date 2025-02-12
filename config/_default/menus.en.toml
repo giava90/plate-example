@@ -25,10 +25,6 @@ weight = 4
 name = "Teaching"
 
 [[main]]
-weight = 4
-name = "Giacomo Vaccario"
-
-[[main]]
 parent = "Research"
 name = "Supply Chain"
 url = "/sp"
