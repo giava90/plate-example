@@ -1,24 +1,24 @@
 {
   "main": [
     {
-      "name": "facebook",
-      "icon": "fab fa-facebook",
-      "link": "https://www.facebook.com/"
-    },
-    {
-      "name": "twitter",
-      "icon": "fab fa-twitter",
-      "link": "https://twitter.com/"
+      "name": "orcid",
+      "icon": "fab fa-orcid",
+      "link": "https://orcid.org/0000-0001-8290-2742"
     },
     {
       "name": "github",
       "icon": "fab fa-github",
-      "link": "https://www.github.com/"
+      "link": "https://www.github.com/giava90/"
     },
     {
       "name": "linkedin",
       "icon": "fab fa-linkedin",
-      "link": "https://www.linkedin.com/"
+      "link": "https://www.linkedin.com/in/giacomo-vaccario-631772a6/"
+    },
+    {
+      "name": "google-scholar",
+      "icon": "fab fa-google-scholar",
+      "link":"https://scholar.google.com/citations?user=yo8IoxwAAAAJ"
     }
   ]
 }
