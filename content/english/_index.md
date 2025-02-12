@@ -1,13 +1,13 @@
 ---
 # Banner
-banner:
-  title: "The Ultimate Starter Template You Need To Start Your Hugo Project - Portfolios"
-  content: "add here a small description about the project"
-  image: "/images/banner.jpg"
-  # button:
-  #   enable: true
-  #   label: "Get Started For Free"
-  #   link: "https://github.com/zeon-studio/hugoplate"
+# banner:
+#   title: "The Ultimate Starter Template You Need To Start Your Hugo Project - Portfolios"
+#   content: "add here a small description about the project"
+#   image: "/images/banner.jpg"
+#   # button:
+#   #   enable: true
+#   #   label: "Get Started For Free"
+#   #   link: "https://github.com/zeon-studio/hugoplate"
 
 # Features
 features:
