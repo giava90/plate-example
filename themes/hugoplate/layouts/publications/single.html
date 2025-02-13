@@ -1,0 +1,80 @@
+{{ define "title" }}
+<section class="section section__top section__bg section__bgprimary">
+    <div class="section__inner section__content">
+        <div class="section__top__text">
+            <h1 style="hyphens: auto;">{{ .Title }}</h1>
+            <h2><i>{{ delimit .Params.authors ", " " and "}}</i></h2>
+            <div class='pub-info'>
+                <p><span class='book-title'>
+                    {{ .Params.publication }} ({{ dateFormat "2006" .Params.date }})
+                </span></p>
+            </div>
+            {{ if .Params.research }}<p>{{ partial "get_project_tag_urls" . }}</p>{{ end }}
+            {{ if .Params.areas }}<p>{{ partial "get_area_tag_urls" . }}</p>{{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ define "main" }}
+<section class="section section__bg section__bglight wave-deactivate">
+    <div class="section__inner section__content">
+        <div class="text markdown-body">
+            {{ $images := .Resources.ByType "image" }}
+            {{ with .Content }}
+                {{ . }}
+            {{ end }}
+            {{ with .Params.abstract }}
+            <h3>Abstract</h3>
+            <blockquote>
+                <p>{{ . }}</p>
+            </blockquote>
+            {{ end }}
+            {{ with $images}}
+            {{ $image := (index . 0)}}
+            <img src="{{ $image.RelPermalink }}">
+            {{ end }}
+        </div>
+        <div style="display: flex; margin-top: 1em">
+            {{ if .Params.doi }}
+            {{ $doiurl := print "https://doi.org/" .Params.doi }}
+                {{ if in .Params.doi "http" }}
+                    {{ $doiurl = .Params.doi }}
+                {{ end }}
+            <a href="{{ $doiurl }}">
+                <span class="btn">Official Link</span>
+            </a>
+            {{ else if .Params.url_pdf }}
+                {{ $pdfurl := .Params.url_pdf }}
+                <a href="{{ $pdfurl }}">
+                    <span class="btn">Official Link</span>
+                </a>
+            {{ end }}
+
+            {{ with .Params.arxivid }}
+            {{ $arxivurl := print "https://doi.org/abs/" . }}
+                {{ if in . "http" }}
+                    {{ $arxivurl = . }}
+                {{ end }}
+            <a href="{{ $arxivurl }}">
+                <span class="btn">arXiv</span>
+            </a>
+            {{ end }}
+
+            {{ $pdf := .Resources.GetMatch "*.pdf" }}
+            {{ with $pdf }}
+                <a href='{{ .RelPermalink }}' download>
+                    <span class="btn">PDF</span>
+                </a>
+            {{ end }}
+
+            {{ $bibfile := .Resources.GetMatch "*.bib" }}
+            {{ with $bibfile }}
+            <a href='{{ .RelPermalink }}' download>
+                <span class="btn">Bibtex</span>
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}

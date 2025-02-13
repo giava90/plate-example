@@ -20,7 +20,7 @@ url_pdf: https://arxiv.org/abs/2205.07677
 doi: 10.48550/ARXIV.2205.07677
 featured: false
 stage: under-review
-research:
+tags:
 - Science of Science
 - Economic Networks
 ---

@@ -29,7 +29,8 @@ doi: 10.1038/s41598-021-90281-9
 description: Prestige and geographic considerations drive scientific careers.
 featured_image: empirical_vs_simulated_nets.png
 featured: true
-research:
+tags:
 - Science of Science
 - Data-driven models
+- Agent-based models
 ---

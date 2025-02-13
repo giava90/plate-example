@@ -29,6 +29,7 @@ doi: https://doi.org/10.1142/S0219525920500186
 url_pdf: https://www.worldscientific.com/doi/10.1142/S0219525920500186
 featured: false
 sg-areas:
-research: 
+tags: 
 - Cooperation and Opinion Dynamics
+- Agent-based models
 ---

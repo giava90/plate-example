@@ -26,7 +26,7 @@ pages: 054307
 doi: 10.1103/PhysRevE.105.054307
 url_pdf: http://link.aps.org/doi/10.1103/PhysRevE.105.054307
 featured: false
-research: 
+tags: 
  - Network Theory
  - Cooperation and Opinion Dynamics
 ---

@@ -23,7 +23,8 @@ publication: Advances in Complex Systems
 url_pdf: 'https://doi.org/10.1142/S0219525922500035'
 doi: 10.1142/S0219525922500035
 featured: false
-research:
+tags:
 - Data-driven models
 - Economic networks
+- Agent-based models
 ---

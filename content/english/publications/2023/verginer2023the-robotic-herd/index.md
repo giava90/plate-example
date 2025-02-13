@@ -24,6 +24,6 @@ abstract: " We explore human herding in a strategic setting where humans interac
 publication: SocArXiv
 url_pdf: https://osf.io/preprints/socarxiv/ajusq
 featured: false
-research:
+tags:
 - Cooperation and Opinion Dynamics
 ---

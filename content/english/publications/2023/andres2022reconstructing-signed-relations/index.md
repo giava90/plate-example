@@ -22,7 +22,8 @@ publication: Scientific Reports
 url_pdf: https://www.nature.com/articles/s41598-023-47822-1.pdf
 doi: 10.1038/s41598-023-47822-1
 featured: false
-research:
+tags:
 - Signed Relations
 - Network Theory
+- Data Science
 ---

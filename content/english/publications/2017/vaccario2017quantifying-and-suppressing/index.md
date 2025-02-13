@@ -27,6 +27,7 @@ publication: Journal of Informetrics
 url_pdf: http://www.sciencedirect.com/science/article/pii/S1751157717300974
 doi: https://doi.org/10.1016/j.joi.2017.05.014
 featured: false
-research:
+tags:
 - Science of Science
+- Network Theory
 ---
