@@ -22,7 +22,8 @@ name = "Research"
 
 [[main]]
 weight = 4
-name = "Teaching"
+name = "Courses"
+url = "/courses"
 
 [[main]]
 parent = "Research"
@@ -43,16 +44,6 @@ url = "/abm"
 parent = "Research"
 name = "Science of Science"
 url = "/sos"
-
-[[main]]
-parent = "Teaching"
-name = "Agent-based models"
-url = "/course-abm"
-
-[[main]]
-parent = "Teaching"
-name = "System Thinking"
-url = "/course-st"
 
 
 
