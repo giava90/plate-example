@@ -25,7 +25,7 @@ features:
       link: "#"
 
   - title: "Network science"
-    image: "/images/networkscience.webp"
+    image: "/images/networkscience.png"
     content: "Network science studies the structure, dynamics, and behavior of interconnected systems, from social networks to ecological and economic systems. It uncovers patterns and principles shaping complex networks."
     bulletpoints:
       - "Analyzes relationships and connectivity within systems."
@@ -38,7 +38,7 @@ features:
       link: "https://github.com/zeon-studio/hugoplate"
 
   - title: "Supply chain"
-    image: "/images/supplychain.webp"
+    image: "/images/supplychain.png"
     content: "Supply chain systems integrate processes, resources, and stakeholders to ensure the efficient flow of goods and services. It emphasizes optimization and sustainability in modern networks."
     bulletpoints:
       - "Enhances transparency across complex supply networks."

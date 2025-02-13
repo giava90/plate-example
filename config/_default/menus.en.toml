@@ -12,39 +12,14 @@ url = "/about"
 weight = 2
 
 [[main]]
-weight = 5
-name = "Publications"
-url = "/publications"
-
-[[main]]
 weight = 3
-name = "Research"
-
-[[main]]
-weight = 4
 name = "Courses"
 url = "/courses"
 
 [[main]]
-parent = "Research"
-name = "Supply Chain"
-url = "/sp"
-
-[[main]]
-parent = "Research"
-name = "Networks"
-url = "/networks"
-
-[[main]]
-parent = "Research"
-name = "Agent-based models"
-url = "/abm"
-
-[[main]]
-parent = "Research"
-name = "Science of Science"
-url = "/sos"
-
+weight = 4
+name = "Publications"
+url = "/publications"
 
 
 # footer menu

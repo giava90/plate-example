@@ -6,11 +6,12 @@ description: "ABM at ETH Zurich"
 date: 2022-04-04T05:00:00Z
 categories: ["Courses", "ABM"]
 author: "Giacomo Vaccario"
-tags: ["Courses", "ABM"]
+tags: ["Courses", "agent-based models"]
 draft: false
 ---
-![ABM](/images/abm_example.webp)
+<!-- ![ABM](/images/abm_example.webp) -->
 
+## Course Description
 Individuals live in groups!
 Their weave of dynamical and differentiated interactions results in complex societies, whose properties and ruling principles can only be fully unraveled when studying the underlying social system from a formal standpoint.
 

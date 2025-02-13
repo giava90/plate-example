@@ -10,7 +10,7 @@ tags: ["Courses", "Supply Chain", "System Thinking", "Wood in Construction"]
 draft: false
 ---
 
-![Wood Supply Chain](/images/supplychain.png)
+<!-- ![Wood Supply Chain](/images/supplychain.png) -->
 
 ## Abstract
 
