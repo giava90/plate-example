@@ -29,4 +29,5 @@ featured: false
 tags: 
  - Network Theory
  - Cooperation and Opinion Dynamics
+image: '/images/magnetization.png'
 ---

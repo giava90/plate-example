@@ -26,4 +26,5 @@ tags:
 - Signed Relations
 - Network Theory
 - Data Science
+image: '/images/networkscience.png'
 ---

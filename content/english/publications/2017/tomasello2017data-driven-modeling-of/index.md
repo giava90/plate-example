@@ -36,4 +36,5 @@ tag:
 - Data-driven models
 - Economic networks
 - Agent-based models
+image: '/images/fig2.jpg'
 ---

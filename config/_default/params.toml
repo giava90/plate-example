@@ -27,7 +27,7 @@ google_adsense = ""     # example: ca-pub-xxxxxxxxxxxxxxxx
 # custom script on header, example: custom_script= "<script>console.log(\"Hello World\")</script>"
 custom_script = ""
 # copyright
-copyright = "Website developed using on [HugoPlate](https://github.com/zeon-studio/hugoplate)"
+copyright = "Website developed using [HugoPlate](https://github.com/zeon-studio/hugoplate)"
 
 # Preloader
 # preloader module: https://github.com/gethugothemes/hugo-modules/tree/master/components/preloader
@@ -46,7 +46,7 @@ link = "contact"
 [search]
 enable = true
 primary_color = "#121212"
-include_sections = ["blog"]
+include_sections = ["publications", "courses"]
 show_image = true
 show_description = true
 show_tags = true

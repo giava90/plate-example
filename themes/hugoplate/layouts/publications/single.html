@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row justify-center">
         <article class="lg:col-10">
-          {{ $image:= .Params.image }}
+          <!-- {{ $image:= .Params.image }}
           {{ if $image }}
             <div class="mb-10">
               {{ partial "image" (dict "Src" $image "Context" .Page "Alt" .Title "Class" "w-full rounded") }}
             </div>
-          {{ end }}
+          {{ end }} -->
           <h1 class="h2 mb-4">
             {{ .Title }}
           </h1>
@@ -46,7 +46,7 @@
             </li>
           </ul>
           <div class="content mb-10">
-            <section class="section section__bg section__bglight wave-deactivate">
+            <!-- <section class="section section__bg section__bglight wave-deactivate"> -->
                 <div class="section__inner section__content">
                     <div class="text markdown-body">
                         {{ $images := .Resources.ByType "image" }}
@@ -59,53 +59,53 @@
                             <p>{{ . }}</p>
                         </blockquote>
                         {{ end }}
+                        <div style="display: flex; margin-top: 1em">
+                          {{ if .Params.doi }}
+                          {{ $doiurl := print "https://doi.org/" .Params.doi }}
+                              {{ if in .Params.doi "http" }}
+                                  {{ $doiurl = .Params.doi }}
+                              {{ end }}
+                          <a href="{{ $doiurl }}">
+                              <span class="btn">Official Link</span>
+                          </a>
+                          {{ else if .Params.url_pdf }}
+                              {{ $pdfurl := .Params.url_pdf }}
+                              <a href="{{ $pdfurl }}">
+                                  <span class="btn">Official Link</span>
+                              </a>
+                          {{ end }}
+              
+                          {{ with .Params.arxivid }}
+                          {{ $arxivurl := print "https://doi.org/abs/" . }}
+                              {{ if in . "http" }}
+                                  {{ $arxivurl = . }}
+                              {{ end }}
+                          <a href="{{ $arxivurl }}">
+                              <span class="btn">arXiv</span>
+                          </a>
+                          {{ end }}
+              
+                          {{ $pdf := .Resources.GetMatch "*.pdf" }}
+                          {{ with $pdf }}
+                              <a href='{{ .RelPermalink }}' download>
+                                  <span class="btn">PDF</span>
+                              </a>
+                          {{ end }}
+              
+                          {{ $bibfile := .Resources.GetMatch "*.bib" }}
+                          {{ with $bibfile }}
+                          <a href='{{ .RelPermalink }}' download>
+                              <span class="btn">Bibtex</span>
+                          </a>
+                          {{ end }}
+                      </div>
                         {{ with $images}}
                         {{ $image := (index . 0)}}
                         <img src="{{ $image.RelPermalink }}">
                         {{ end }}
                     </div>
-                    <div style="display: flex; margin-top: 1em">
-                        {{ if .Params.doi }}
-                        {{ $doiurl := print "https://doi.org/" .Params.doi }}
-                            {{ if in .Params.doi "http" }}
-                                {{ $doiurl = .Params.doi }}
-                            {{ end }}
-                        <a href="{{ $doiurl }}">
-                            <span class="btn">Official Link</span>
-                        </a>
-                        {{ else if .Params.url_pdf }}
-                            {{ $pdfurl := .Params.url_pdf }}
-                            <a href="{{ $pdfurl }}">
-                                <span class="btn">Official Link</span>
-                            </a>
-                        {{ end }}
-            
-                        {{ with .Params.arxivid }}
-                        {{ $arxivurl := print "https://doi.org/abs/" . }}
-                            {{ if in . "http" }}
-                                {{ $arxivurl = . }}
-                            {{ end }}
-                        <a href="{{ $arxivurl }}">
-                            <span class="btn">arXiv</span>
-                        </a>
-                        {{ end }}
-            
-                        {{ $pdf := .Resources.GetMatch "*.pdf" }}
-                        {{ with $pdf }}
-                            <a href='{{ .RelPermalink }}' download>
-                                <span class="btn">PDF</span>
-                            </a>
-                        {{ end }}
-            
-                        {{ $bibfile := .Resources.GetMatch "*.bib" }}
-                        {{ with $bibfile }}
-                        <a href='{{ .RelPermalink }}' download>
-                            <span class="btn">Bibtex</span>
-                        </a>
-                        {{ end }}
-                    </div>
                 </div>
-            </section>
+            <!-- </section> -->
           </div>
           <div class="row items-start justify-between">
             {{ $tags:= .Params.tags }}

@@ -31,4 +31,5 @@ publication: Advances in Complex Systems
 featured: false
 tags:
 - Resilience
+image: 'images/overview-new3.png'
 ---

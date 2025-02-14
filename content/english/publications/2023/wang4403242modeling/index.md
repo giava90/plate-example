@@ -12,5 +12,6 @@ featured: false
 tags: 
 - Economic Networks
 - Network Theory
+image: '/images/tw.png'
 ---
 

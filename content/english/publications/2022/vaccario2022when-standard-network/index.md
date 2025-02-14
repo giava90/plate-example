@@ -27,4 +27,5 @@ tags:
 - Science of Science
 - Network Theory
 - Data Science
+image: '/images/paths.png'
 ---

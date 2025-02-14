@@ -29,4 +29,5 @@ featured: false
 tags:
 - Science of Science
 - Data Science
+image: '/images/diffusion_emp_vs_markov_uJ5cFB8.png'
 ---

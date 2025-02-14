@@ -41,4 +41,5 @@ tags:
 - Economic networks
 - Data driven models
 - Agent-based models
+image: '/images/knowledge_distance_eg2.png'
 ---

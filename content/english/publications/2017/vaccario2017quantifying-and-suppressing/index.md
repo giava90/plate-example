@@ -30,4 +30,5 @@ featured: false
 tags:
 - Science of Science
 - Network Theory
+image: '/images/thumbnailQ.png'
 ---

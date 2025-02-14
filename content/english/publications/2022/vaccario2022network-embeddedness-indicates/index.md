@@ -23,4 +23,5 @@ stage: under-review
 tags:
 - Science of Science
 - Economic Networks
+image: '/images/coefplot.png'
 ---

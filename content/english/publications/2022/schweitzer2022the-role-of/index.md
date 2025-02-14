@@ -27,4 +27,5 @@ tags:
 - Data-driven models
 - Economic networks
 - Agent-based models
+image: '/images/coreness.png'
 ---

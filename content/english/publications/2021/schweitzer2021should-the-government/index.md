@@ -32,4 +32,5 @@ sg-areas:
 tags: 
 - Cooperation and Opinion Dynamics
 - Agent-based models
+image: '/images/thumb.jpg'
 ---

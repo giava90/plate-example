@@ -33,4 +33,5 @@ tags:
 - Science of Science
 - Data-driven models
 - Agent-based models
+image: 'images/empirical_vs_simulated_nets.png'
 ---

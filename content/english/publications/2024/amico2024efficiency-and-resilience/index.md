@@ -15,14 +15,14 @@ abstract: "Networks to distribute goods, from raw materials to food and medicine
   of distribution networks. In our model, ﬁrms consider two practices when establishing
   new supply relations: centralization, the tendency to choose highly connected partners,
   and multi-sourcing, the preference for multiple suppliers. Centralization enhances
-  network eﬃciency by leveraging short distribution paths; multi-sourcing fosters
-  resilience by providing multiple distribution paths connecting ﬁnal buyers to the
+  network efficiency by leveraging short distribution paths; multi-sourcing fosters
+  resilience by providing multiple distribution paths connecting final buyers to the
   manufacturer. We validate the proposed model using data on drug shipments in the
   US. Drawing on these data, we reconstruct 22 nationwide pharmaceutical distribution
   networks. We demonstrate that the proposed model successfully replicates several
   structural features of the empirical networks, including their out-degree and path
-  length distributions as well as their resilience and eﬃciency properties. These
-  ﬁndings suggest that the proposed ﬁrm-level practices eﬀectively capture the network
+  length distributions as well as their resilience and efficiency properties. These
+  findings suggest that the proposed ﬁrm-level practices effectively capture the network
   growth process that leads to the observed structures."
 publication: EPJ Data Science
 url_pdf: http://dx.doi.org/10.1140/epjds/s13688-024-00484-z
@@ -35,4 +35,5 @@ tags:
 - Data Driven Models
 - Agent-based models
 - Supply Chain
+image: '/images/network_growth.png'
 ---

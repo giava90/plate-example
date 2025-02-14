@@ -17,4 +17,5 @@ tags:
 - Economic Networks
 - Resilience
 - Supply Chain
+image: '/images/distribution_higher_order_empirical.png'
 ---
