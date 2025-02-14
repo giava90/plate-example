@@ -31,7 +31,7 @@ features:
       - "Tests policy impacts and scenarios."
     button:
       enable: True
-      label: "More about ABM"
+      label: "Studies about ABM"
       link: "tags/agent-based-models"
 
   - title: "Network science"
@@ -44,7 +44,7 @@ features:
       - "Aids in optimizing and improving network resilience."
     button:
       enable: True
-      label: "More about networks"
+      label: "Studies about networks"
       link: "tags/network-theory"
 
   - title: "Supply chains"
@@ -57,6 +57,6 @@ features:
       - "Adapts to disruptions with resilient and flexible strategies."
     button:
       enable: True
-      label: "More about Supply chains"
+      label: "Studies about Supply chains"
       link: "tags/supply-chain"
 ---
