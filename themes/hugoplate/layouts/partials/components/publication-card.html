@@ -1,0 +1,45 @@
+<div class="bg-body dark:bg-darkmode-body">
+  {{ $images := .Resources.ByType "image" }}
+  {{ with $images}}
+      {{ $image := index . 0 }}
+      <img src="{{ $image.RelPermalink }}">
+  {{ end }}
+  <h4 class="mb-3">
+    <a href="{{ .RelPermalink }}">
+      {{ .Title }}
+    </a>
+  </h4>
+  {{ $tags:= .Params.tags }}
+  {{ if $tags }}
+    <ul class="mb-4">
+      {{ $authors:= .Params.authors }}
+            {{ if $authors }}
+            <li class="mr-4 inline-block">
+                <i class="fa-regular fa-circle-user mr-2"></i>
+                {{ range $i,$p:= $authors }}
+                    {{ $p }}
+                    {{ if ne $i (sub (len $authors) 1) }}
+                        {{ "," }}
+                    {{ end }}
+                {{ end }}
+                  </a>
+            {{ end }}
+      <li class="mr-4 inline-block">
+        <i class="fa-regular fa-folder mr-1"></i>
+        {{ range $i,$p:= $tags }}
+          <a
+            href="{{ `tags/` | relLangURL }}{{ . | urlize | lower }}/"
+            class="ms-1"
+            >{{ . | humanize }}{{ if ne $i (sub (len $tags) 1) }}
+              {{ "," }}
+            {{ end }}
+          </a>
+        {{ end }}
+      </li>
+    </ul>
+  {{ end }}
+  <p class="mb-6">{{ .Summary | plainify }}</p>
+  <a class="btn btn-outline-primary btn-sm" href="{{ .RelPermalink }}">
+    {{ T "read_more" }}
+  </a>
+</div>

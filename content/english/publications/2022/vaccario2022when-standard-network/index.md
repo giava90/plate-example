@@ -23,7 +23,7 @@ publication: Quantitative Science Studies
 url_pdf: https://doi.org/10.1162/qss_a_00225
 doi: 10.1162/qss_a_00225
 featured: false
-categories:
+tags:
 - Science of Science
 - Network Theory
 - Data Science

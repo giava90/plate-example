@@ -2,8 +2,8 @@
 # favicon module: https://github.com/gethugothemes/hugo-modules/tree/master/images#favicon-implementation
 favicon = "images/favicon.png"
 # logo module: https://github.com/gethugothemes/hugo-modules/tree/master/images#logo-implementation
-logo = "images/gv_logo.png"
-logo_darkmode = "images/gv_logo_dark.png"
+logo = "images/logo-ricca.png"
+logo_darkmode = "images/logo-ricca-dark.png"
 # use `px` or `x` with logo_width, example: "100px".
 # Note: logo_width is not work with .svg file
 logo_width = "160px"

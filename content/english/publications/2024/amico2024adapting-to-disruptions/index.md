@@ -13,7 +13,8 @@ publication: Science Advances
 featured: false
 doi: '10.1126/sciadv.adj1194'
 tags:
-- Pharmaceutical Supply Chain Resilience
+- Pharmaceuticals
 - Economic Networks
 - Resilience
+- Supply Chain
 ---
