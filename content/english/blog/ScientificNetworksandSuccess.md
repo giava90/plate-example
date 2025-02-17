@@ -3,7 +3,7 @@ title: "Success in Science - Special Issue"
 date: 2021-12-07
 draft: false
 featured: true
-featured_image: EmbeddedImage.jpg  # path/name of image to use as thumbnail
+image: /images/EmbeddedImage.jpg  # path/name of image to use as thumbnail
 description: Special issue on "Succes in Science"
 tags: 
 - Science of Science
