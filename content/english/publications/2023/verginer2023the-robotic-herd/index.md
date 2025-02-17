@@ -26,5 +26,6 @@ url_pdf: https://osf.io/preprints/socarxiv/ajusq
 featured: false
 tags:
 - Cooperation and Opinion Dynamics
+- Game Theory
 image: '/images/experiment_flowq.png'
 ---

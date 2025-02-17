@@ -32,5 +32,6 @@ sg-areas:
 tags: 
 - Cooperation and Opinion Dynamics
 - Agent-based models
+- Game Theory
 image: '/images/thumb.jpg'
 ---

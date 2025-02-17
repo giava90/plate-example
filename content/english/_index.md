@@ -59,4 +59,17 @@ features:
       enable: True
       label: "Studies about Supply chains"
       link: "tags/supply-chain"
+
+  - title: "Science of Science"
+    image: "/images/paths.png"
+    content: "The science of science is an interdisciplinary field that develops indicators and models to analyze collaboration patterns, knowledge transfer, the impact of knowledge artifacts (such as papers and patents), and the factors influencing success in science."
+    bulletpoints:
+      - "Analyzes knowledge artifacts to measure impact and innovation potential."
+      - "Develops indicators to identify collaboration patterns and pathways to success."
+      - "Enhances understanding of knowledge transfer and its role in scientific progress."
+      - "Informs science policy and funding decisions to foster innovation."
+    button:
+      enable: True
+      label: "Studies about Science of Science"
+      link: "tags/science-of-science"
 ---
