@@ -31,5 +31,6 @@ publication: Advances in Complex Systems
 featured: false
 tags:
 - Resilience
+- System Thinking
 image: 'images/overview-new3.png'
 ---
