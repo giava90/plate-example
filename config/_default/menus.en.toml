@@ -21,7 +21,6 @@ weight = 4
 name = "Publications"
 url = "/publications"
 
-
 # footer menu
 [[footer]]
 name = "About"

@@ -1,0 +1,61 @@
+<div class="bg-body dark:bg-darkmode-body">
+  <!-- {{ $images := .Resources.ByType "image" }}
+  {{ with $images}}
+      {{ $image := index . 0 }}
+      <img src="{{ $image.RelPermalink }}">
+  {{ end }} -->
+  {{ $image:= .Params.image }}
+  {{ if $image }}
+    {{ partial "image" (dict "Src" $image "Context" .Page "Alt" .Title "Class" "mb-6 w-full rounded") }}
+  {{ end }}
+  {{ $pdf := .Params.pdf }}
+  {{ $title := .Title }}
+  {{ with $pdf }}
+      <a href="{{ . }}" download>
+          {{ $title }}
+      </a>
+  {{ end }}
+  </h4>
+  {{ $venue := .Params.venue }}
+  {{ if $venue }}
+    <p class="text-gray-600 dark:text-gray-400 mt-2">
+      <i class="fa-solid fa-map-marker-alt mr-2"></i> {{ $venue }}
+    </p>
+  {{ end }}
+  {{ $date := .Params.date }}
+  {{ if $date }}
+    <p class="text-gray-600 dark:text-gray-400 mt-2">
+      <i class="fa-regular fa-clock"></i> {{ dateFormat "Jan 2, 2006" $date }}
+    </p>
+  {{ end }}
+  {{ $tags:= .Params.tags }}
+  {{ if $tags }}
+    <ul class="mb-4">
+      <!-- {{ $authors:= .Params.authors }}
+            {{ if $authors }}
+            <li class="mr-4 inline-block">
+                <i class="fa-regular fa-circle-user mr-2"></i>
+                {{ range $i,$p:= $authors }}
+                    {{ $p }}
+                    {{ if ne $i (sub (len $authors) 1) }}
+                        {{ "," }}
+                    {{ end }}
+                {{ end }}
+                  </a>
+            {{ end }} -->
+      <li class="mr-4 inline-block">
+        <i class="fa-regular fa-folder mr-1"></i>
+        {{ range $i,$p:= $tags }}
+          <a
+            href="{{ `tags/` | relLangURL }}{{ . | urlize | lower }}/"
+            class="ms-1"
+            >{{ . | humanize }}{{ if ne $i (sub (len $tags) 1) }}
+              {{ "," }}
+            {{ end }}
+          </a>
+        {{ end }}
+      </li>
+    </ul>
+  {{ end }}
+  </a>
+</div>
