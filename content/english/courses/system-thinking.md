@@ -14,7 +14,7 @@ draft: false
 
 ## Abstract
 
-The course focuses on developing system dynamic models for socio-technical transitions. With the practical case of upscaling the use of wood for construction, students will interact with stakeholders of the wood supply chain and model 1) their relations, 2) emerging non-linear dynamics (e.g., feedbacks and tipping points), and 3) trade-offs between economic, societal, and environmental benefits.
+The course focuses on developing system dynamic models for socio-technical transitions. With the practical case of upscaling the use of wood for construction, students will interact with stakeholders of the wood supply chain and model 1) their relations, 2) emerging non-linear dynamics (e.g., feedbacks and tipping points), and 3) trade-offs between economic, societal, and environmental benefits. [**Link to course on ETH catalogue**](https://www.lehrbetrieb.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=187730&semkez=2025S&lang=en).
 
 ## Objectives
 
