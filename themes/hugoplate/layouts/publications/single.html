@@ -44,6 +44,20 @@
               <i class="fa-regular fa-clock mr-2"></i>
               {{ time.Format ":date_long" .PublishDate }}
             </li>
+            {{ if .Params.doi }}
+            {{ $doiurl := print "https://doi.org/" .Params.doi }}
+                {{ if in .Params.doi "http" }}
+                    {{ $doiurl = .Params.doi }}
+                {{ end }}
+            <a href="{{ $doiurl }}">
+                <span class="btn">Official Link</span>
+            </a>
+            {{ else if .Params.url_pdf }}
+                {{ $pdfurl := .Params.url_pdf }}
+                <a href="{{ $pdfurl }}">
+                    <span class="btn">Official Link</span>
+                </a>
+            {{ end }}
           </ul>
           <div class="content mb-10">
             <!-- <section class="section section__bg section__bglight wave-deactivate"> -->

@@ -1,1 +1,36 @@
 // Add your own custom styles here
+.prose {
+  --tw-prose-pre-code: inherit;
+  --tw-prose-pre-bg: transparent;
+}
+
+.prose pre {
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  font-family: inherit; /* remove monospace feel */
+  font-size: 1.2rem;
+  line-height: 1.6;
+  white-space: pre-wrap; /* better for quotes */
+  background-color: #f3f4f6; /* light mode */
+  color: inherit;
+  border-left: 4px solid #000000; /* subtle accent */
+}
+
+/* Dark mode */
+.dark .prose pre {
+  background-color: #232425;
+  color:  #f3f4f6;
+  border-left: 4px solid #f4f4f4;
+}
+
+.custom-details summary {
+  font-weight: 600;        /* bold */
+  font-size: 1.5rem;       /* slightly larger */
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+/* Optional: improve spacing when open */
+.custom-details[open] summary {
+  margin-bottom: 0.5rem;
+}
