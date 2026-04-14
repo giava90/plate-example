@@ -20,7 +20,7 @@ image: '/images/ego.png'
 ---
 
 
-<p>How people change positive and negative relations in social networks? Two conflicting mechanisms, balance and status hierarchies, coexist and influence each other. The mechanisms are integrated into an agent-based model where individuals aim to resolve inconsistencies with balance and status. By fitting the model to real-world networks, one can successfully replicate observed patterns in social networks. The study suggests that social configurations may be fragile and vulnerable to disruptions.</p>
+<p>How do people change positive and negative relations in social networks? Two conflicting mechanisms, balance and status hierarchies, coexist and influence each other. The mechanisms are integrated into an agent-based model where individuals aim to resolve inconsistencies with balance and status. By fitting the model to real-world networks, one can successfully replicate observed patterns in social networks. The study suggests that social configurations may be fragile and vulnerable to disruptions.</p>
 
 <pre>
 We integrate both mechanisms by considering the ego perspective of an individual agent who can change only her own relations to others and possesses only limited information about others’ relations.
