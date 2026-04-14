@@ -6,7 +6,7 @@ import requests
 import json
 
 from bot_role_sumary import BOT_ROLE
-from token import HF_TOKEN
+from tokens import HF_TOKEN
 
 
 API_URL = "https://router.huggingface.co/v1/chat/completions"
@@ -155,7 +155,6 @@ def main():
     # os.system("git add .")
     # os.system('git commit -m "auto content update"')
     # os.system("git push")
-            break
 if __name__ == "__main__":
     main()
 

@@ -38,3 +38,37 @@ tag:
 - Agent-based models
 image: '/images/fig2.jpg'
 ---
+
+<p>The analysis shows that collaboration networks from two different domains, economics and science, share common structural features. A data-driven modeling approach was used to calibrate agent-based models for each domain, which were then validated by reproducing network features not used for calibration. The results indicate that newcomers in R&D collaborations prefer links with established agents, while newcomers in co-authorship relations prefer links with other newcomers. This sheds new light on the role of endogenous and exogenous factors in network formation.</p>
+
+<pre>
+In R&D collaborations newcomers prefer links with established agents, while in co-authorship relations newcomers prefer links with other newcomers.
+</pre>
+
+<details class="custom-details">
+  <summary><strong>Why This Matters for Scientists</strong></summary>
+  <p>You may want to use this data-driven modeling approach in your research to understand collaboration patterns and reproduce network features not used for calibration.</p>
+</details>
+
+<details class="custom-details">
+  <summary><strong>Quick Technical Overview</strong></summary>
+  <p>The agent-based model was developed in the context of R&D collaborations and assumes simple rules of link formation that are followed by agents with certain probabilities. The model was then extended to and validated in other domains, including co-authorship networks.</p>
+
+  <pre>
+This investigation can also provide some evidence to our initial conjecture whether there may be a uniﬁed modeling approach for collaboration networks in diﬀerent domains.
+  </pre>
+</details>
+
+<details class="custom-details">
+  <summary><strong>Summary for Policy Makers</strong></summary>
+  <p>The results of this study have implications for policies and funding schemes that aim to allocate resources efficiently and foster innovation. The data-driven modeling approach can help to understand collaboration patterns and identify similarities and differences between different domains. This can inform the design of more eﬀective collaboration strategies.</p>
+
+  <pre>
+By understanding how we collaborate, we can re-design funding schemes and policies to allocate resources eﬃciently, and better foster innovation.
+  </pre>
+</details>
+
+<details class="custom-details" data-sentinel="ai-disclaimer-v1">
+  <summary><strong>Disclaimer</strong></summary>
+  <p>The above summaries were generated with the assistance of an AI system.</p>
+</details>
