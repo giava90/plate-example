@@ -5,7 +5,8 @@ from datetime import datetime
 import requests
 import json
 
-from bot_role_sumary import BOT_ROLE, HF_TOKEN
+from bot_role_sumary import BOT_ROLE
+from token import HF_TOKEN
 
 
 API_URL = "https://router.huggingface.co/v1/chat/completions"
@@ -16,7 +17,6 @@ HEADERS = {
     }
 
 PDF_FOLDER = "content/english/publications"
-OUTPUT_FOLDER = "temp/"  # Hugo folder
 
 def extract_text(pdf_path):
     reader = PdfReader(pdf_path)
@@ -25,29 +25,7 @@ def extract_text(pdf_path):
         text += page.extract_text() or ""
     return text[:8000]  # keep it safe for API limits
 
-# def summarize(text):
-#     payload = {
-#         "model": "meta-llama/Llama-3.1-8B-Instruct",
-#         #"model": "mistralai/Mistral-7B-Instruct-v0.3",
-#         "messages": [
-#             {'role': 'system', 'content': BOT_ROLE},
-#             {"role": "user", "content": text}
-#         ],
-#         "temperature": 0.7,
-#         "max_tokens": 500
-#     }
-
-#     response = requests.post(API_URL, headers=HEADERS, json=payload)
-
-#     print("Status:", response.status_code)
-#     print(response.text)
-
-#     response.raise_for_status()
-#     data = response.json()
-
-#     return data["choices"][0]["message"]["content"]
-
-def summarize(text, model="meta-llama/Llama-3.1-8B-Instruct"):
+def summarize(text, model="meta-llama/Llama-3.1-8B-Instruct", max_tokens=7000):
     def build_payload(model, text):
         # Detect Mistral vs chat-based models
         is_mistral = "mistral" in model.lower()
@@ -60,7 +38,7 @@ def summarize(text, model="meta-llama/Llama-3.1-8B-Instruct"):
                 "inputs": prompt,
                 "parameters": {
                     "temperature": 0.7,
-                    "max_new_tokens": 500
+                    "max_new_tokens": max_tokens
                 }
             }
         else:
@@ -72,7 +50,7 @@ def summarize(text, model="meta-llama/Llama-3.1-8B-Instruct"):
                     {"role": "user", "content": text}
                 ],
                 "temperature": 0.7,
-                "max_tokens": 500,
+                "max_tokens": max_tokens,
                 "response_format": {"type": "json_object"}
             }
 
@@ -81,7 +59,7 @@ def summarize(text, model="meta-llama/Llama-3.1-8B-Instruct"):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
 
     print("Status:", response.status_code)
-    print(response.text)
+    #print(response.text)
 
     response.raise_for_status()
     data = response.json()
@@ -129,16 +107,14 @@ def json_to_html(data):
   </pre>
 </details>
 
-<details class="custom-details">
+<details class="custom-details" data-sentinel="ai-disclaimer-v1">
   <summary><strong>Disclaimer</strong></summary>
-  <p>The above summaries were generated with the assistance of an AI system (Mistral).</p>
+  <p>The above summaries were generated with the assistance of an AI system.</p>
 </details>
 """
 
-def save_markdown(title, content_json):
-    filename = title.lower().replace(" ", "-") + ".md"
-    path = os.path.join(OUTPUT_FOLDER, filename)
-    print(content_json)
+def save_markdown(content_json, path, filename="index.md"):
+    path = os.path.join(path, filename)
 
     try:
         data = json.loads(content_json)  # will fail if model cheats
@@ -149,19 +125,32 @@ def save_markdown(title, content_json):
     with open(path, "a") as f:
         f.write(content)
 
+def has_sentinel(path, sentinel="ai-disclaimer-v1"):
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    if sentinel in content:
+        return True
+    return False
+
 def main():
     for root, dirs, files in os.walk(PDF_FOLDER):
         for file in files:
             if file.lower().endswith(".pdf"):
+                # check if index.md already exists
+                if os.path.exists(os.path.join(root, "index.md")):
+                    # check if it contains the ai-disclaimer
+                    summary_is_done = has_sentinel(os.path.join(root, "index.md"))
+                    if summary_is_done:
+                        print(f"Summary already exists for {file}, skipping...")
+                        continue
                 path = os.path.join(root, file)
-            
+
                 print(f"Processing {file}...")
                 text = extract_text(path)
                 summary = summarize(text)
-                #summary = "Testing append."
                 title = file.replace(".pdf", "")
-                save_markdown(title, summary)
-                variable_not_known
+                save_markdown(summary, root, filename="index.md") 
 
     # os.system("git add .")
     # os.system('git commit -m "auto content update"')

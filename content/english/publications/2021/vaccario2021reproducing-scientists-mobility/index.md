@@ -70,6 +70,6 @@ This research provides actionable insights for shaping scientific mobility and i
 <details class="custom-details">
 <summary><strong>Disclaimer</strong></summary>
 
-The above summaries were generated with the assistance of an AI system (Mistral).
+The above summaries were generated with the assistance of an AI system.
 
 </details>
