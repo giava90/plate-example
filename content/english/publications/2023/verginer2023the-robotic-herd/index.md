@@ -21,8 +21,8 @@ abstract: " We explore human herding in a strategic setting where humans interac
   \ behavior in human decision-making, even when participants are aware of interacting\
   \ with automated entities. The insights provide profound implications for understanding\
   \ human behavior on digital platforms where interactions with bots are common. "
-publication: SocArXiv
-url_pdf: https://osf.io/preprints/socarxiv/ajusq
+publication: scientific reports
+url_pdf: https://www.nature.com/articles/s41598-025-05534-8
 featured: false
 tags:
 - Cooperation and Opinion Dynamics
