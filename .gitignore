@@ -4,7 +4,7 @@ Thumbs.db
 .tmp
 .lock
 .sass-cache
-.pyc
+.cpython-311.pyc
 npm-debug.log
 node_modules
 builds
@@ -17,3 +17,4 @@ hugo_stats.json
 go.sum
 yarn.lock
 tokens.py
+__pycache__

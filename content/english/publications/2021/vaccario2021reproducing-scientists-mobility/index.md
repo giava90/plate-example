@@ -67,7 +67,7 @@ This research provides actionable insights for shaping scientific mobility and i
 </pre>
 </details>
 
-<details class="custom-details">
+<details class="custom-details" data-sentinel="ai-disclaimer-v1">
 <summary><strong>Disclaimer</strong></summary>
 
 The above summaries were generated with the assistance of an AI system.
