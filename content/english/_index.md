@@ -72,4 +72,16 @@ features:
       enable: True
       label: "Studies about Science of Science"
       link: "tags/science-of-science"
+  
+  - title: "Generative AI"
+    image: "/images/ai_summarization.png"
+    content: "Dealing with agents since my PhD, I am now exploring the potential of generative AI and multi-agent AI to enhance human creativity and productivity."
+    bulletpoints:
+      - "Explores the capabilities of generative AI in creative and productive applications."
+      - "Investigates multi-agent AI systems for collaborative problem-solving."
+      - "Uses AI to speed-up research and innovation processes."
+    button:
+      enable: True
+      label: "Generative AI and Multi-agent AI projects"
+      link: "tags/generative-ai"   
 ---

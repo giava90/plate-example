@@ -10,6 +10,7 @@ tags:
 - Data Science
 - Science of Science
 - Agent-Based Models
+- Science Communication
 image: '/images/feedback.png'
 pdf: 'bridging/overview.pdf'
 venue: "The Complexity of Social and Economic Systems: From Models to Measures - ETH Zurich"

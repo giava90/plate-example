@@ -5,7 +5,12 @@ description: "System thinking for the wood supply chain"
 date: 2024-08-20T05:00:00Z
 image: "/images/wood_supply_chain.png"
 authors: ["Giacomo Vaccario","Maaike Goedkoop"]
-tags: ["Supply chain", "Resilience", "Wood in Construction"]
+tags: 
+- "Supply chain"
+- "Resilience"
+- "Wood in Construction"
+- "Science Communication"
+- "Sustainability"
 draft: false
 ---
 

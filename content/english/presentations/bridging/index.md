@@ -10,6 +10,7 @@ tags:
 - Data Science
 - Science of Science
 - Agent-Based Models
+- Science Communication
 image: '/images/empirical_vs_simulated_nets.png'
 pdf: 'bridging/mobility_scientists.pdf'
 venue: Bridging Approaches in the Sciences Studying Science - LMU
