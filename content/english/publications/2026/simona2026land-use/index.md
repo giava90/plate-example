@@ -19,3 +19,37 @@ tags:
 - Sustainability
 image: 'images/policy_did.png'
 ---
+
+<p>A study found that interacting with policymakers during policy drafting can increase adoption of reforestation strategies. The research used a strategy game to simulate real-world land management decisions in Scotland. The study suggests that early stakeholder engagement can enhance policy effectiveness by addressing ecological and social barriers to implementation.</p>
+
+<pre>
+This suggests that, under simplified experimental conditions, integrating stakeholder perspectives early in real-life policy formulation could enhance the effectiveness of reforestation strategies in Scotland by addressing both ecological and social barriers to successful implementation.
+</pre>
+
+<details class="custom-details">
+  <summary><strong>Why This Matters for Scientists</strong></summary>
+  <p>If you're a scientist, this study's findings on the importance of stakeholder engagement in policy adoption should encourage you to consider involving local communities in your research. Early stakeholder engagement can increase the effectiveness of reforestation strategies by addressing ecological and social barriers.</p>
+</details>
+
+<details class="custom-details">
+  <summary><strong>Quick Technical Overview</strong></summary>
+  <p>The study used a strategy game to simulate real-world land management decisions in Scotland. This approach allowed researchers to capture interactions between policymakers and landowners, demonstrating the effectiveness of participatory approaches in policy adoption. The study contributes to the understanding of how stakeholder perspectives can influence policy outcomes.</p>
+
+  <pre>
+Participatory socio-ecological modeling can help to overcome these challenges by providing a deliberative co-design interface that facilitates higher-intensity interactions than traditional consultations.
+  </pre>
+</details>
+
+<details class="custom-details">
+  <summary><strong>Summary for Policy Makers</strong></summary>
+  <p>This study's findings have implications for environmental governance in regions where policy adoption is limited by low stakeholder engagement or misaligned incentives. The research suggests that accessible and engaging participatory approaches, such as strategy games, can foster more effective and widely supported environmental governance.</p>
+
+  <pre>
+In regions where policy adoption is limited by low stakeholder engagement or misaligned incentives, accessible and engaging participatory approaches as represented by strategy games may foster more effective and widely supported environmental governance.
+  </pre>
+</details>
+
+<details class="custom-details" data-sentinel="ai-disclaimer-v1">
+  <summary><strong>Disclaimer</strong></summary>
+  <p>The above summaries were generated with the assistance of an AI system.</p>
+</details>
