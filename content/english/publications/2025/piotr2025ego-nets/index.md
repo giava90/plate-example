@@ -16,6 +16,7 @@ tags:
 - Cooperation and Opinion Dynamics
 - Data-driven models
 - Agent-based models
+- Signed relations
 image: '/images/ego.png'
 ---
 

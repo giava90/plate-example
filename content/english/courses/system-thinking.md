@@ -6,7 +6,7 @@ meta_title: ""
 description: "System Thinking at ETH Zurich"
 categories: ["Courses", "Supply Chain"]
 author: "Giacomo Vaccario"
-tags: ["Courses", "Supply Chain", "System Thinking", "Wood in Construction"]
+tags: ["Courses", "Supply Chain", "System Thinking", "Wood in Construction", "Sustainability"]
 draft: false
 ---
 

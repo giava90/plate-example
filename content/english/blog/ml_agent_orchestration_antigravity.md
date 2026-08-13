@@ -10,8 +10,8 @@ tags:
 - "LLM"
 - "Agentic AI"
 - "AutoML"
-- "Hugging Face"
-- "Google Antigravity"
+- "Machine Learning"
+- "Automation"
 draft: false
 ---
 # Using Google Antigravity to Build an Autonomous ML Swarm
