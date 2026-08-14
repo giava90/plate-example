@@ -15,7 +15,7 @@ doi: 10.1016/j.ecolmodel.2026.111763
 featured: false
 sg-areas:
 tag:
-- Machine learning
+- Machine Learning
 - Sustainability
 - Data Science
 image: 'images/pred.png'

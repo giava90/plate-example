@@ -1,9 +1,7 @@
 # this code an AI generation was created during the workshop "AI for Science Communication" at ETH Zurich, January 2025. It is designed to automatically generate summaries of scientific papers in a specific folder and save them as markdown files. The code uses the Hugging Face API to access language models for summarization. It also includes functionality to check if a summary already exists and to avoid overwriting existing summaries. The generated summaries are formatted in HTML and include a disclaimer about AI assistance.
 
 import os
-from together import Together
 from pypdf import PdfReader
-from datetime import datetime
 import requests
 import json
 
