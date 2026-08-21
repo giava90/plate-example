@@ -2,7 +2,7 @@
 title: "Framing Agriculture as a Linear Optimization Problem: How Transformed Messy Data and Linear Models Revealed a Hidden Food Security Bottleneck"
 meta_title: "ML Swarm Orchestrator"
 description: "How I used Google Antigravity to build a multi-agent AI system for end-to-end data science and AutoML workflows."
-date: 2026-07-24T15:19:00Z
+date: 2026-08-24T15:19:00Z
 image: "images/data_flow_food_sec.jpg"
 authors: ["Giacomo Vaccario"]
 tags:
@@ -25,14 +25,16 @@ To answer this, I* set out to reframe food security from a simple yield problem 
 While machine learning was initially considered, I chose Linear Programming (LP) instead. In sensitive domains like regional food security, public health, and land policy, transparency and interpretable mathematical guarantees are far more valuable than black-box predictions. LP allows every assumption, constraint, and trade-off to remain explicit.
 
 I formulated two complementary optimization setups:
-1. **Minimize land area** required to achieve a target Mean Adequacy Ratio ($ext{MAR} = 1.0$).
-2. **Maximize $\ext{MAR}$** subject to a fixed, existing land allocation constraint.
-
-The decision variables are the specific land areas assigned to $\sim 90$ distinct crop and animal production options. The optimization solves for a whole new farming system tailored to local household requirements.
+1. **Minimize land area** required to maximize Mean Adequacy Ratio ($\text{MAR}= 1.0$).
 
 $$\text{MAR} = \frac{1}{17} \sum_{i=1}^{17} \min\left(1, \frac{p_i}{r_i}\right)$$
+where $p_i$ is the total farm production of nutrient $i$, $r_i$ is the demographic requirement, and the 17 tracked nutrients include essential macronutrients, vitamins, and minerals. The Nutrients Adequacy Ratio ($\text{NAR}_i$) is capped at $1.0$ so that an excess of one nutrient (like carbohydrates) cannot mathematically mask a severe deficit in another (like Zinc or B12).
 
-Where $p_i$ is the total farm production of nutrient $i$, $r_i$ is the demographic requirement, and the 17 tracked nutrients include essential macronutrients, vitamins, and minerals. The Nutrients Adequacy Ratio ($	ext{NAR}_i$) is capped at $1.0$ so that an excess of one nutrient (like carbohydrates) cannot mathematically mask a severe deficit in another (like Zinc or B12).
+2. **Maximize $\text{MAR}$** subject to a fixed, existing land allocation constraint.
+
+The decision variables are the specific land areas assigned to $\sim 90$ distinct crop and animal production options. The optimization solves for a whole new farming system tailored to local household requirements. The problem contains also multiple other constraints linked to health and socio-economic factors.
+
+
 
 ## 3. ETL Data Pipeline: Ingesting 35,000 Household Profiles
 To ground the model in real-world agricultural conditions, I built an ETL pipeline to ingest household survey datasets spanning 18 Sub-Saharan African countries. 
