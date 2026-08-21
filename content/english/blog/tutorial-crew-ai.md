@@ -2,7 +2,7 @@
 title: "CrewAI for Research Projects"
 meta_title: "ML Swarm Orchestrator"
 description: "How I usedCrewAI to build a multi-agent AI workflow to run agent-based simulations."
-date: 2026-08-15T15:19:00Z
+date: 2026-09-15T15:19:00Z
 image: "images/ml_ai_orchestration.png"
 authors: ["Giacomo Vaccario"]
 tags:
