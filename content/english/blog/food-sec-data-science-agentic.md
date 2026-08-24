@@ -2,7 +2,7 @@
 title: "Framing Agriculture as a Linear Optimization Problem: How Transformed Messy Data and Linear Models Revealed a Hidden Food Security Bottleneck"
 meta_title: "ML Swarm Orchestrator"
 description: "How I used Google Antigravity to build a multi-agent AI system for end-to-end data science and AutoML workflows."
-date: 2026-08-24T15:19:00Z
+date: 2029-12-24T15:19:00Z
 image: "images/data_flow_food_sec.jpg"
 authors: ["Giacomo Vaccario"]
 tags:
