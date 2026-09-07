@@ -1,7 +1,7 @@
 ---
 title: "A Curated Review in Context: An Interactive Knowledge Map of the Structural-Balance Literature"
 meta_title: "Interactive knowledge map of structural balance"
-description: "How I placed 427 hand-picked references inside 3,000+ signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
+description: "How I placed 429 hand-picked references inside ~2,500 signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
 date: 2026-09-07T12:00:00Z
 image: "images/sb_knowledge_map.png"
 authors: ["Giacomo Vaccario", "Piotr Górski", "Georges Anders", "Manuel S. Mariani", "Janusz Hołyst"]
@@ -25,19 +25,24 @@ attempt to *show* that rather than assert it.
 ## What you are looking at
 
 Every dot is a publication retrieved from [OpenAlex](https://openalex.org). The
-large outlined markers are the **427 references** cited in our review (of 431
-that resolved on OpenAlex); the small faint dots are a background of **3,068
-works** pulled with the phrases *structural balance*, *signed network*, *signed
-graph*, *signed social network* and *Heider balance*, keeping only those whose
-title or abstract is actually about signed or balance-related structure.
+large outlined markers are the **429 references** cited in our review; the small
+faint dots are a background of **~2,560 works** pulled with the phrases
+*structural balance*, *signed network*, *signed graph*, *signed social network*
+and *Heider balance*. A background work is kept only if its title or abstract
+carries an explicit signed-network or balance term — and, because "structural
+balance" *also* means the cyclically-adjusted budget balance in macroeconomics
+(and there is "work–life balance", "balance of nature", …), the ambiguous
+phrases only count when a signed-network term appears within a few words of
+them. That filter removes roughly 500 fiscal-policy and other off-topic papers
+that an earlier version of the map had swept in.
 
 Colours are communities; the panel on the right names them and gives their size
 and how many curated papers fall inside each. The curated set piles up in two
-**opinion-dynamics / social-influence** communities and the
-statistical-physics-of-balance region attached to them, and only brushes past
-adjacent bodies of work the map keeps separate, such as signed graph theory,
-link-sign prediction, consensus and distributed control on antagonistic
-networks, "balance" in political economy. That asymmetry is the whole point.
+**opinion-dynamics / social-influence** communities (289 of 429 references) and
+the statistical-physics-of-balance region attached to them, and only brushes
+past adjacent bodies of work the map keeps separate, such as signed graph
+theory, signed graph neural networks, link-sign prediction, and consensus and
+distributed control on antagonistic networks. That asymmetry is the whole point.
 
 <div style="position:relative;width:100%;height:78vh;min-height:520px;border:1px solid #e4e4e4;border-radius:8px;overflow:hidden;margin:1.5rem 0;">
   <iframe src="/knowledge_map_interactive.html?bare=1"
@@ -56,12 +61,18 @@ networks, "balance" in political economy. That asymmetry is the whole point.
 
 ## How the map is built
 
-The pipeline is a laptop-sized adaptation of the Max Planck Institute for Human
-Development "science map" method, with the LLM-heavy parts removed.
+The pipeline is a laptop-sized adaptation of the "science map" method developed
+at the Max Planck Institute for Human Development
+([Thoma et al. 2025](https://doi.org/10.31234/osf.io/6c2va_v2)), with the
+LLM-heavy parts removed.
 
-1. **Corpus** — resolve every `.bib` entry on OpenAlex (DOI → title search →
-   fuzzy title match), then union a focused phrase search for the background
-   layer. Abstracts are rehydrated from OpenAlex's inverted index and cleaned.
+1. **Corpus** — resolve every `.bib` entry on OpenAlex (DOI, then a *verified*
+   title search — the candidate has to actually match on title and year — then a
+   fuzzy match against the corpus), then union a focused phrase search for the
+   background layer, filtered as described above. Abstracts come from OpenAlex's
+   inverted index, with the `.bib` entry as a fallback where OpenAlex has none.
+   A handful of pre-1970 references that OpenAlex does not index (Lenz 1920,
+   Newcomb 1968, Sampson's 1968 monastery study) are added by hand.
 2. **Representation** — each work becomes the concatenation of three
    L2-normalised spaces: a **sentence embedding** of title + abstract
    (`all-MiniLM-L6-v2`), a **co-authorship** embedding (PPMI + truncated SVD of
@@ -76,7 +87,7 @@ Development "science map" method, with the LLM-heavy parts removed.
    corpus is refreshed.
 
 The interactive map is a single self-contained HTML file: no JavaScript
-libraries, no network calls, the ~3,000 points embedded as JSON and drawn on a
+libraries, no network calls, the ~2,500 points embedded as JSON and drawn on a
 `<canvas>`.
 
 ## Reading it as a statement of scope
@@ -88,6 +99,22 @@ and economics, ecological systems, higher-order balance. This is roughly the
 table of contents of the review. The big map is the counterpart: it says where
 that curated core sits in the wider signed-network landscape, and where it
 deliberately does not go.
+
+## Reference
+
+The method this map adapts:
+
+```bibtex
+@article{thoma2025mapping,
+  title     = {Mapping the landscape of behavioral reinforcement learning research},
+  author    = {Thoma, Anna and Bolenz, Florian and Tiede, Kevin and Yang, Yujia
+               and Palminteri, Stefano and Hertwig, Ralph and Wulff, Dirk},
+  year      = {2025},
+  publisher = {OSF},
+  doi       = {10.31234/osf.io/6c2va_v2},
+  url       = {https://doi.org/10.31234/osf.io/6c2va_v2}
+}
+```
 
 <!--
 DEPLOYMENT NOTES (delete before publishing)
