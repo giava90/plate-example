@@ -4,21 +4,20 @@ meta_title: "Interactive knowledge map of structural balance"
 description: "How I placed 427 hand-picked references inside 3,000+ signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
 date: 2026-09-07T12:00:00Z
 image: "images/sb_knowledge_map.png"
-authors: ["Giacomo Vaccario"]
+authors: ["Giacomo Vaccario", "Piotr Górski", "Georges Anders", "Manuel S. Mariani", "Janusz Hołyst"]
 tags:
-- "Network science"
+- "Network Theory"
 - "Structural balance"
-- "Bibliometrics"
-- "OpenAlex"
-- "Data visualization"
-- "Sentence embeddings"
+- "Science of Science"
+- "LLM"
+- "Machine Learning"
 draft: false
 ---
 <!-- # A Curated Review in Context -->
 
 When you write a review, one question follows you around: *did you cover
 everything?* For an interpretive, physics-oriented review of **structural
-balance** the honest answer is "no, on purpose" — the reference list is a
+balance** the honest answer is "no, on purpose". The reference list is a
 curated selection of the work that matters conceptually, not a systematic
 harvest of every paper that mentions a signed network. The map below is an
 attempt to *show* that rather than assert it.
@@ -36,7 +35,7 @@ Colours are communities; the panel on the right names them and gives their size
 and how many curated papers fall inside each. The curated set piles up in two
 **opinion-dynamics / social-influence** communities and the
 statistical-physics-of-balance region attached to them, and only brushes past
-adjacent bodies of work the map keeps separate — signed graph theory,
+adjacent bodies of work the map keeps separate, such as signed graph theory,
 link-sign prediction, consensus and distributed control on antagonistic
 networks, "balance" in political economy. That asymmetry is the whole point.
 
@@ -83,9 +82,9 @@ libraries, no network calls, the ~3,000 points embedded as JSON and drawn on a
 ## Reading it as a statement of scope
 
 Re-clustered on their own, the curated papers split into recognisable
-sub-themes — cognitive balance and belief dynamics, signed social-network
+sub-themes: cognitive balance and belief dynamics, signed social-network
 analysis, Hamiltonian and statistical-physics models, international relations
-and economics, ecological systems, higher-order balance — which is roughly the
+and economics, ecological systems, higher-order balance. This is roughly the
 table of contents of the review. The big map is the counterpart: it says where
 that curated core sits in the wider signed-network landscape, and where it
 deliberately does not go.
