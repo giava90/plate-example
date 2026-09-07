@@ -29,20 +29,18 @@ large outlined markers are the **429 references** cited in our review; the small
 faint dots are a background of **~2,560 works** pulled with the phrases
 *structural balance*, *signed network*, *signed graph*, *signed social network*
 and *Heider balance*. A background work is kept only if its title or abstract
-carries an explicit signed-network or balance term — and, because "structural
-balance" *also* means the cyclically-adjusted budget balance in macroeconomics
-(and there is "work–life balance", "balance of nature", …), the ambiguous
-phrases only count when a signed-network term appears within a few words of
-them. That filter removes roughly 500 fiscal-policy and other off-topic papers
-that an earlier version of the map had swept in.
+carries an explicit signed-network or balance term.  Because "structural
+balance" *also* means the cyclically-adjusted budget balance in macroeconomics (learned about this only after the map was built!) and there is "work–life balance", "balance of nature",etc. 
+The ambiguous phrases only count when a signed-network term appears within a few words of
+them. That filter removes roughly 500 fiscal-policy and other off-topic papers.
 
 Colours are communities; the panel on the right names them and gives their size
 and how many curated papers fall inside each. The curated set piles up in two
 **opinion-dynamics / social-influence** communities (289 of 429 references) and
-the statistical-physics-of-balance region attached to them, and only brushes
-past adjacent bodies of work the map keeps separate, such as signed graph
+the statistical-physics-of-balance region attached to them. It only touches
+topics such as signed graph
 theory, signed graph neural networks, link-sign prediction, and consensus and
-distributed control on antagonistic networks. That asymmetry is the whole point.
+distributed control on antagonistic networks. 
 
 <div style="position:relative;width:100%;height:78vh;min-height:520px;border:1px solid #e4e4e4;border-radius:8px;overflow:hidden;margin:1.5rem 0;">
   <iframe src="/knowledge_map_interactive.html?bare=1"
@@ -63,26 +61,25 @@ distributed control on antagonistic networks. That asymmetry is the whole point.
 
 The pipeline is a laptop-sized adaptation of the "science map" method developed
 at the Max Planck Institute for Human Development
-([Thoma et al. 2025](https://doi.org/10.31234/osf.io/6c2va_v2)), with the
-LLM-heavy parts removed.
+([Thoma et al. 2025](https://doi.org/10.31234/osf.io/6c2va_v2)).
 
-1. **Corpus** — resolve every `.bib` entry on OpenAlex (DOI, then a *verified*
-   title search — the candidate has to actually match on title and year — then a
+1. **Corpus**. Resolve every `.bib` entry on OpenAlex (DOI, then a *verified*
+   title search where the candidate has to actually match on title and year, then a
    fuzzy match against the corpus), then union a focused phrase search for the
    background layer, filtered as described above. Abstracts come from OpenAlex's
    inverted index, with the `.bib` entry as a fallback where OpenAlex has none.
    A handful of pre-1970 references that OpenAlex does not index (Lenz 1920,
    Newcomb 1968, Sampson's 1968 monastery study) are added by hand.
-2. **Representation** — each work becomes the concatenation of three
+2. **Representation**. Each work becomes the concatenation of three
    L2-normalised spaces: a **sentence embedding** of title + abstract
    (`all-MiniLM-L6-v2`), a **co-authorship** embedding (PPMI + truncated SVD of
    the work×author matrix), and a **bibliographic-coupling** embedding (same
    construction on shared references).
-3. **Layout & communities** — [UMAP](https://umap-learn.readthedocs.io) to two
+3. **Layout & communities**. [UMAP](https://umap-learn.readthedocs.io) to two
    dimensions, [Leiden](https://www.nature.com/articles/s41598-019-41695-z) for
    communities, each labelled by its dominant OpenAlex research topics with a
    keyword (c-TF-IDF) fallback.
-4. **Render** — a static figure for the paper and this interactive version for
+4. **Render**. A static figure for the paper and this interactive version for
    the web. Community colours are assigned by size, so they stay put when the
    corpus is refreshed.
 
@@ -115,21 +112,3 @@ The method this map adapts:
   url       = {https://doi.org/10.31234/osf.io/6c2va_v2}
 }
 ```
-
-<!--
-DEPLOYMENT NOTES (delete before publishing)
-
-Files:
-  static/knowledge_map_interactive.html   -> served at /knowledge_map_interactive.html (iframe src)
-  assets/images/sb_knowledge_map.png       -> the `image:` cover (same as other posts)
-
-A raw <iframe> does not run the asset pipeline, so the html must live in
-static/ (published as-is), not assets/. The iframe is raw HTML and needs
-markup.goldmark.renderer.unsafe = true in hugo.toml -- Hugoplate sets this.
-
-Regenerate after a pipeline re-run:
-  python scripts\run_pipeline.py --only interactive
-  cp image4SBReview/docs/figs/knowledge_map_interactive.html  static/
--->
-
-
