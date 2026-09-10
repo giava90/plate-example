@@ -1,7 +1,7 @@
 ---
 title: "A Curated Review in Context: An Interactive Knowledge Map of the Structural-Balance Literature"
 meta_title: "Interactive knowledge map of structural balance"
-description: "How I placed 429 hand-picked references inside ~2,500 signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
+description: "How I placed 440 hand-picked references inside ~2,570 signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
 date: 2026-09-07T12:00:00Z
 image: "images/sb_knowledge_map.png"
 authors: ["Giacomo Vaccario", "Piotr Górski", "Georges Anders", "Manuel S. Mariani", "Janusz Hołyst"]
@@ -25,19 +25,19 @@ attempt to *show* that rather than assert it.
 ## What you are looking at
 
 Every dot is a publication retrieved from [OpenAlex](https://openalex.org). The
-large outlined markers are the **429 references** cited in our review; the small
-faint dots are a background of **~2,560 works** pulled with the phrases
+large outlined markers are the **440 references** cited in our review; the small
+faint dots are a background of **~2,130 works** pulled with the phrases
 *structural balance*, *signed network*, *signed graph*, *signed social network*
 and *Heider balance*. A background work is kept only if its title or abstract
 carries an explicit signed-network or balance term.  Because "structural
 balance" *also* means the cyclically-adjusted budget balance in macroeconomics (learned about this only after the map was built!) and there is "work–life balance", "balance of nature",etc. 
 The ambiguous phrases only count when a signed-network term appears within a few words of
-them. That filter removes roughly 500 fiscal-policy and other off-topic papers.
+them. That filter removes roughly 600 fiscal-policy and other off-topic papers.
 
 Colours are communities; the panel on the right names them and gives their size
-and how many curated papers fall inside each. The curated set piles up in two
-**opinion-dynamics / social-influence** communities (289 of 429 references) and
-the statistical-physics-of-balance region attached to them. It only touches
+and how many curated papers fall inside each. The curated set piles up in the
+two largest communities — the **statistical physics of balance** and
+**cognitive and social balance theory** (367 of 440 references). It only touches
 topics such as signed graph
 theory, signed graph neural networks, link-sign prediction, and consensus and
 distributed control on antagonistic networks. 
@@ -77,8 +77,8 @@ at the Max Planck Institute for Human Development
    construction on shared references).
 3. **Layout & communities**. [UMAP](https://umap-learn.readthedocs.io) to two
    dimensions, [Leiden](https://www.nature.com/articles/s41598-019-41695-z) for
-   communities, each labelled by its dominant OpenAlex research topics with a
-   keyword (c-TF-IDF) fallback.
+   communities, each labelled by its dominant OpenAlex research topics, with a
+   keyword (c-TF-IDF) fallback and a few labels set by hand.
 4. **Render**. A static figure for the paper and this interactive version for
    the web. Community colours are assigned by size, so they stay put when the
    corpus is refreshed.
