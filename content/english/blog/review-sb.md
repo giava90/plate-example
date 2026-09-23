@@ -1,7 +1,7 @@
 ---
 title: "A Curated Review in Context: An Interactive Knowledge Map of the Structural-Balance Literature"
 meta_title: "Interactive knowledge map of structural balance"
-description: "How I placed 388 hand-picked references inside ~2,530 signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
+description: "How I placed 392 hand-picked references inside ~2,530 signed-network papers from OpenAlex to show, at a glance, that a review is a curated selection and not an exhaustive survey."
 date: 2026-09-07T12:00:00Z
 image: "images/sb_knowledge_map.png"
 authors: ["Giacomo Vaccario", "Piotr Górski", "Georges Anders", "Manuel S. Mariani", "Janusz Hołyst"]
@@ -25,7 +25,7 @@ attempt to *show* that rather than assert it.
 ## What you are looking at
 
 Every dot is a publication retrieved from [OpenAlex](https://openalex.org). The
-large outlined markers are the **388 references** cited in our review; the small
+large outlined markers are the **392 references** cited in our review; the small
 faint dots are a background of **~2,140 works** pulled with the phrases
 *structural balance*, *signed network*, *signed graph*, *signed social network*
 and *Heider balance*. A background work is kept only if its title or abstract
@@ -37,7 +37,7 @@ them. That filter removes roughly 600 fiscal-policy and other off-topic papers.
 Colours are communities; the panel on the right names them and gives their size
 and how many curated papers fall inside each. The curated set piles up in the
 two largest communities — the **statistical physics of balance** and
-**cognitive and social balance theory** (312 of 388 references). It only touches
+**cognitive and social balance theory** (312 of 392 references). It only touches
 topics such as signed graph
 theory, signed graph neural networks, link-sign prediction, and consensus and
 distributed control on antagonistic networks. 
