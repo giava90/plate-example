@@ -84,6 +84,52 @@ ANSWER     not_supported
 
 Half of those swaps come from a different topic entirely — easy to reject. The other half come from the *same subsection*: topically adjacent, genuinely confusable, the kind of mis-citation that survives peer review. That hard tier is where the configurations separate.
 
+# The two lines of code that decide the bill
+
+Almost everything in this post comes down to where one field goes.
+
+**Caching.** `cache_control` marks the end of the part you want reused. Put it on the last block of the shared prefix — never after the per-item content, or every request pays a write premium on bytes nothing reads back:
+
+```python
+resp = client.messages.create(
+    model="claude-opus-5",
+    max_tokens=1500,
+    system=[{
+        "type": "text",
+        "text": SYSTEM_PROMPT + BIBLIOGRAPHY,      # 37,276 tokens, byte-stable
+        "cache_control": {"type": "ephemeral"},    # <- the breakpoint
+    }],
+    messages=[{"role": "user", "content": claim_and_candidate_key}],  # ~103 tokens
+)
+```
+
+Use `{"type": "ephemeral", "ttl": "1h"}` for the one-hour cache instead of the five-minute default.
+
+**Effort** lives inside `output_config`, not at the top level — and Haiku 4.5 rejects it:
+
+```python
+kwargs = {"model": model, "max_tokens": 1500, "system": [...], "messages": [...]}
+if model != "claude-haiku-4-5":
+    kwargs["output_config"] = {"effort": "low"}    # low | medium | high | xhigh | max
+resp = client.messages.create(**kwargs)
+```
+
+Don't reach for `budget_tokens` — it returns a 400 on Opus 5 and Sonnet 5.
+
+**Reading what it cost.** The single most important thing to know is that `input_tokens` is *not* the prompt size. It is only the uncached remainder:
+
+```python
+u = resp.usage
+prompt_size = (u.input_tokens                      # the tail only
+               + u.cache_creation_input_tokens     # written this request
+               + u.cache_read_input_tokens)        # served from cache
+
+# a healthy second request: creation ~0, read ~the whole prefix
+assert u.cache_read_input_tokens > 0, "cache is not forming"
+```
+
+That assertion is worth keeping in a test. A caching regression is silent — requests keep succeeding and the bill just goes up.
+
 # The three models
 
 All current-generation, one per price tier. Every configuration runs the identical prompt over the identical 117 items and the identical cached bibliography.
@@ -141,6 +187,16 @@ Haiku and Sonnet-at-low-effort land 8 points apart overall, but they fail in mir
 
 Haiku is sceptical — it rejects citations that are actually fine. Sonnet at low effort is credulous — it accepts almost anything. Both are "about 70–77% accurate" and they would fail a real citation-checking job in completely different directions. A single accuracy number would have hidden that entirely.
 
+## Do the models fail on the same claims? Mostly not
+
+If the errors were concentrated on a few genuinely ambiguous citations, that would say something about my review. They aren't.
+
+Only **1 of 117** items was failed by all five configurations, and pairwise error overlap is low — Jaccard between 0.10 and 0.40, highest between the two Opus settings, which share a model. The failures are largely idiosyncratic.
+
+That suggested majority voting should beat any single configuration. It doesn't: the best three-model vote reaches 90.6% for `$4.28`, against 94.9% for `$2.68` from Opus at low effort alone. Low error overlap is necessary for voting to pay, but not sufficient — the weak voters drag the result down faster than the diversity lifts it.
+
+Of the nine items failed by three or more configurations, six are citations the review makes that the models rejected. Before reading anything into that, a caveat about my own design: **multi-citation sentences are 44% of positives overall but 67% of these failures.** When a sentence cites three papers, my benchmark picks one at random and asks whether it supports the whole claim — but each reference may support a different clause. Only two of the six are single-citation items where the attribution is unambiguous. Those two are worth a human glance. The other four are mostly an artefact of how I built the test.
+
 ## Which means "cost per correct answer" is the wrong ranking
 
 For a citation checker the two errors are not worth the same. Waving through a bad citation puts an error into a published paper. Rejecting a good one wastes a few minutes of review. Treating them as equal is what lets Haiku look like the efficiency winner.
@@ -172,6 +228,78 @@ Total cost is `model price + false_accepts × x + false_rejects × y`, so each c
 Sonnet at low effort is beaten by Haiku on both axes: worse accuracy, higher cost. Opus at default is beaten by Opus at low effort on both axes. Neither has any reason to exist on this task.
 
 And paying 3.2× more for Sonnet over Haiku buys nothing detectable: 79.5% against 76.9%, p = 0.74. On this workload that price difference is not purchasing accuracy.
+
+# The cheapest change I found: stop asking one claim at a time
+
+Every request re-reads the 37k bibliography. Judging ten claims per request pays that read once for ten items instead of ten times. The prompt barely changes — the system block is identical, only the user turn carries a numbered list:
+
+```
+ITEMS
+
+1. CLAIM: Real-world signed networks almost never do, which is why they
+   are described as being in a state of partial balance [CITATION].
+   CANDIDATE CITATION KEY: [aref2017measuring]
+
+2. CLAIM: ...
+   CANDIDATE CITATION KEY: [wey2008social]
+
+Give 10 verdicts, one per line.
+```
+
+Measured over the same 60 items, one at a time versus ten per request:
+
+| | Accuracy | Cost per item | |
+|---|---|---|---|
+| Haiku 4.5, one at a time | 81.7% | `$0.00347` | |
+| Haiku 4.5, ten per request | 81.7% | `$0.00083` | **76% cheaper** |
+| Opus 5 low, one at a time | 93.3% | `$0.02469` | |
+| Opus 5 low, ten per request | 93.3% | `$0.00729` | **70% cheaper** |
+
+Identical accuracy on both. McNemar says better on 1, worse on 1 for Opus; better on 7, worse on 7 for Haiku — p = 1.000 both times. Every reply parsed.
+
+This is a larger saving than dropping two model tiers, and it costs nothing in quality. Opus at low effort grouped (`$0.0073` per item) now sits close to Haiku one-at-a-time (`$0.0035`) while scoring 93.3% against 81.7%.
+
+# The Batch API does not do what I assumed
+
+Batch is 50% off every token, so I expected it to halve the bill. It did the opposite.
+
+Batch is submitted all at once, so nothing can wait for a first response — the send-one-then-fan-out pattern is impossible. The docs call in-batch cache hits best-effort. Ten Haiku items, twenty-one cents, settled it:
+
+- **2 of 10** requests read the cache
+- **8 of 10** wrote it
+
+And because I had followed the documentation's advice to use the one-hour TTL for batches, each of those eight writes cost **2× base input**. The result was `$0.0207` per item against `$0.00325` for the same work run live and cached — **6× more expensive, not half**.
+
+The lesson generalises past batching: when a large cached prefix dominates your cost, anything that prevents cache reuse is more expensive than the discount it buys.
+
+# The agent that scored 100%, and why I threw the result away
+
+I wanted to know whether a Claude Code agent — with file access and tools, rather than a single API call over a cached prefix — could do the same job. So I handed one 24 items, the bibliography as a file, and no answer key.
+
+It returned 24 out of 24, with a thoughtful report naming the three calls it found hardest and explaining its reasoning on each.
+
+The best API configuration scores 94.9%. A perfect 24 should have been the first thing that worried me, and the pattern in its answers made it obvious:
+
+```
+supported:      meas-0001, 0003, 0005, 0007, 0009, 0011, ...
+not_supported:  meas-0002, 0004, 0006, 0008, 0010, 0012, ...
+```
+
+Every odd item supported, every even item not. That is not a property of the citations. It is a property of **my benchmark**, which built its balanced set like this:
+
+```python
+make_positive = (i % 2 == 0)     # balanced, and perfectly predictable
+```
+
+All 117 items alternated. The label could be read off the position without looking at a single abstract.
+
+**The single-call API results are unaffected** — each request sees exactly one item, so there is no neighbouring pattern to detect. And the grouped runs, which do see ten consecutive items, scored 81.7% and 93.3%, essentially identical to one-at-a-time. Had they exploited the ordering they would have been near 100%. They didn't. The cost findings stand.
+
+But the agent result is uninterpretable. I cannot separate "read the abstracts carefully" from "noticed the alternation," and the honest thing is to discard it rather than publish a 100%.
+
+The fix is one line — assign labels by a seeded shuffle instead of by position — and the regenerated benchmark now sits at 52% alternation instead of 100%.
+
+The transferable lesson is not "shuffle your labels." It is that **giving a model more context gives it more structure to exploit**, including structure you did not mean to put there. A single-call setup is blind to its neighbours; an agent with the whole slice in front of it is not. The same broad context that makes agents useful makes benchmark leakage easier, and a result that looks too good is the only symptom you get.
 
 # Where the money actually goes
 
@@ -232,25 +360,56 @@ Then four canary runs, about 85 cents total, checked the forecast against realit
 
 **The orchestrator question is still open.** Published measurements say a frontier-plus-cheap-workers split pays off only when the work exceeds a single context window. My 117 claims over a 37k-token bibliography fit comfortably inside a million-token window, so at this scale an orchestrator should lose. Finding the crossover means scaling to all 923 citations.
 
+# Why two harnesses, not one
+
+This project ended up using the Claude API for some questions and Claude Code agents for others, and the split is not arbitrary.
+
+**The API is the only way to measure cost.** Every number in this post comes from `usage` fields — `cache_read_input_tokens`, `cache_creation_input_tokens`, `output_tokens`. Effort, cache TTL and model are all set per request and controlled exactly. A Claude Code subagent exposes none of that: I get its output, not its billing. So effort sweeps, caching and the cost model have to run through the API.
+
+**Agents are the only way to test decomposition.** An orchestrator that chunks a corpus, dispatches workers and merges results is not a single API call. It needs tools, file access and a loop. That is what the agent harness is for, and it is how the second half of this project — task breakdown — will have to be tested.
+
+The division is therefore: **API for anything with a price attached, agents for anything with a workflow.** Cost of an agent architecture gets counted, not billed — you capture the prompts the agent actually sends and price them with the free token-counting endpoint.
+
+# What the whole corpus would cost
+
+The review has 608 claim sentences, not just the 117 in the Measurement section. Scaling the cost model to all of them (free — no calls, just token counts) answers a question I had been assuming:
+
+```
+all 608 claims + the complete 393-entry bibliography
+  = 121,639 + 608 × 103 = 184,182 tokens
+```
+
+That **fits in one context window**, with room to spare. Scaling the corpus does not force decomposition. Only swapping abstracts for full paper texts would, and many of those references are books — a corpus worth building for a local open model, not for a metered API.
+
+Pricing the architectures at full scale:
+
+| | Opus 5 low | Sonnet 5 | Haiku 4.5 |
+|---|---|---|---|
+| One claim per request | `$39.40` | `$16.03` | `$7.83` |
+| Ten claims per request | `$6.14` | `$2.72` | `$1.18` |
+| Twenty per request | `$4.31` | `$1.99` | `$0.81` |
+
+And on the orchestrator question, counting the planner and merge prompts rather than guessing them:
+
+| | Cost |
+|---|---|
+| One agent, whole bibliography every request | `$1.175` |
+| One agent, only the slice each chunk needs | `$0.482` (59% cheaper) |
+| The same, plus an orchestrator on top | `$0.596` (+`$0.114` overhead) |
+
+**The saving comes from scoping the context, not from delegating.** A single agent that loads only the references a chunk actually cites captures almost all of it. Adding a planner and a merge step costs more and buys nothing — on a corpus that fits in one window. That reproduces the published finding on an independent task: an orchestrator pays when the work exceeds a context window, and this corpus does not.
+
 # What I'd run next
 
 In order of what each would actually settle.
 
-**Settle what's already published, about `$8`.** Replicate the Sonnet effort comparison three times — either the reversal is real or it isn't, and right now I can't say. And capture the model's stated reasoning on the nine items where Opus default failed and low effort succeeded, which turns the over-reasoning story into evidence or kills it.
+**Re-run the benchmark with the fixed label assignment.** The single-call results are unaffected, but the corpus should not have been predictable in the first place, and the agent comparison needs redoing on a sound version.
 
-**Test the Batch API, about `$1.50`.** Everything here ran as live synchronous calls; batch never appears in this post. It offers a flat 50% discount, but it is submitted all at once, so the send-one-then-fan-out trick that produced 116 cache reads per configuration is impossible, and the docs call cache hits inside a concurrent batch best-effort. Since cache reads *are* 71–88% of the bill, the two outcomes are far apart:
+**Settle what's already published, about `$8`.** Replicate the Sonnet effort comparison three times — either the reversal is real or it isn't. And capture the model's stated reasoning on the nine items where Opus default failed and low effort succeeded, which turns the over-reasoning story into evidence or kills it.
 
-| Opus 5, low effort, 117 items | |
-|---|---|
-| Live, cached (measured) | `$2.68` |
-| Batch, if cache reads land | ~`$1.34` |
-| Batch, if every item re-reads the prefix | ~`$10.90` |
+**Run the idle-then-reload scenario.** Mostly answered by arithmetic already: an idle gap costs exactly one extra cache write, so three thirty-minute gaps add 26% of a pass if you let them lapse, or 5% on the one-hour TTL. What arithmetic cannot give is the wall-clock cost of a cold prefill, which is the part a user actually feels.
 
-Batch is either the best lever here or a 4× regression, and nothing I ran distinguishes them.
-
-**Run the idle-then-reload scenario, about `$5`.** Everything above ran against a warm cache. An agent that goes idle long enough for the cache to lapse, and has to re-import its context, is the scenario that started this project, and it is still untested. Four arms — idle, kept warm by real work, kept warm by a `max_tokens: 0` ping, and a one-hour cache — differing only in what happens in the gaps.
-
-**Find the orchestrator crossover, `$20–50`.** With a caveat I got wrong at first: scaling to all 923 citations does *not* force decomposition. 923 claims plus a 37k bibliography is about 132k tokens, comfortably inside a million-token window. Forcing the issue needs full paper texts rather than abstracts — roughly 3.1M tokens — which is what makes chunking unavoidable and gives an orchestrator something to orchestrate. That is the second of the two questions this project was built to answer, and the one I haven't started.
+**Build the full-text corpus for a local model.** Forcing genuine decomposition needs paper texts rather than abstracts, and many of these references are books. That is a job for a local open model, not for metered inference — spending heavily to confirm that a big corpus needs chunking would be paying for an answer we can already derive.
 
 ---
 
