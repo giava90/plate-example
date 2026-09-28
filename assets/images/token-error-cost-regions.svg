@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400" role="img" aria-label="Decision map. The horizontal axis is what one false accept costs you, the vertical axis what one false reject costs. Haiku 4.5 is cheapest only in a small triangle near the origin, bounded by the line x plus six y equals 77 cents. Everywhere beyond it, Opus 5 at low effort is cheapest overall. Sonnet 5 at low effort wins only in a sliver where false accepts are essentially free. Opus 5 at default effort never wins anywhere.">
+  <title>Which configuration is cheapest, once errors have a price</title>
+  <style>
+    .surface { fill: #fcfcfb; }
+    .ink { fill: #0b0b0b; } .ink2 { fill: #52514e; }
+    .rule { stroke: #d8d7d3; } .axis { stroke: #9a9994; }
+    .r1 { fill: #2a78d6; } .r2 { fill: #eb6834; } .r3 { fill: #1baf7a; }
+    .s1 { stroke: #2a78d6; } .s3 { stroke: #1baf7a; }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .surface { fill: #1a1a19; }
+      .ink { fill: #ffffff; } .ink2 { fill: #c3c2b7; }
+      .rule { stroke: #3a3a37; } .axis { stroke: #6f6e69; }
+      .r1 { fill: #3987e5; } .r2 { fill: #d95926; } .r3 { fill: #199e70; }
+      .s1 { stroke: #3987e5; } .s3 { stroke: #199e70; }
+    }
+  </style>
+
+  <rect class="surface" x="0" y="0" width="720" height="400"/>
+  <text class="ink" x="24" y="28" font-size="14.5" font-weight="700">Which configuration is cheapest, once errors have a price</text>
+  <text class="ink2" x="24" y="46" font-size="11.5">Total cost = model price + (false accepts &times; x) + (false rejects &times; y), over 117 claims.</text>
+
+  <!-- Opus 5 low fills the plot; other regions overlay it -->
+  <rect class="r1" x="90" y="60" width="570" height="260" opacity=".16"/>
+
+  <!-- Haiku triangle: below x + 6y = 0.766 -->
+  <polygon class="r3" points="90,320 381,320 90,253" opacity=".30"/>
+  <!-- Sonnet 5 low sliver hugging the y axis -->
+  <polygon class="r2" points="90,296 98,290 98,60 90,60" opacity=".34"/>
+
+  <!-- boundary lines -->
+  <line class="s3" x1="90" y1="253" x2="381" y2="320" stroke-width="1.8"/>
+  <line class="rule" x1="90" y1="60" x2="90" y2="320" stroke-width="1"/>
+
+  <!-- gridlines -->
+  <line class="rule" x1="280" y1="60" x2="280" y2="320" stroke-width="1" opacity=".6"/>
+  <line class="rule" x1="470" y1="60" x2="470" y2="320" stroke-width="1" opacity=".6"/>
+  <line class="rule" x1="660" y1="60" x2="660" y2="320" stroke-width="1" opacity=".6"/>
+  <line class="rule" x1="90" y1="216" x2="660" y2="216" stroke-width="1" opacity=".6"/>
+  <line class="rule" x1="90" y1="112" x2="660" y2="112" stroke-width="1" opacity=".6"/>
+
+  <!-- axes -->
+  <line class="axis" x1="90" y1="320" x2="660" y2="320" stroke-width="1.5"/>
+  <text class="ink2" x="90"  y="338" font-size="10.5" text-anchor="middle">$0</text>
+  <text class="ink2" x="280" y="338" font-size="10.5" text-anchor="middle">$0.50</text>
+  <text class="ink2" x="470" y="338" font-size="10.5" text-anchor="middle">$1.00</text>
+  <text class="ink2" x="660" y="338" font-size="10.5" text-anchor="middle">$1.50</text>
+  <text class="ink2" x="375" y="358" font-size="11.5" font-weight="600" text-anchor="middle">Cost of one FALSE ACCEPT — a bad citation waved through</text>
+
+  <text class="ink2" x="82" y="324" font-size="10.5" text-anchor="end">$0</text>
+  <text class="ink2" x="82" y="220" font-size="10.5" text-anchor="end">$0.20</text>
+  <text class="ink2" x="82" y="116" font-size="10.5" text-anchor="end">$0.40</text>
+  <text class="ink2" x="30" y="190" font-size="11.5" font-weight="600" text-anchor="middle" transform="rotate(-90 30 190)">Cost of one FALSE REJECT</text>
+
+  <!-- region labels -->
+  <text class="ink" x="168" y="303" font-size="12" font-weight="700">Haiku 4.5</text>
+  <text class="ink2" x="168" y="316" font-size="10">cheapest here</text>
+
+  <text class="ink" x="420" y="150" font-size="14" font-weight="700">Opus 5, low effort</text>
+  <text class="ink2" x="420" y="166" font-size="11">cheapest everywhere else</text>
+
+  <text class="ink2" x="112" y="84" font-size="10">Sonnet 5 low, only where a</text>
+  <text class="ink2" x="112" y="96" font-size="10">false accept is nearly free</text>
+  <line class="rule" x1="108" y1="80" x2="99" y2="88" stroke-width="1"/>
+
+  <!-- boundary annotation -->
+  <text class="s3" x="392" y="316" font-size="10.5" font-weight="700" fill="#1baf7a">x + 6y = $0.77</text>
+
+  <text class="ink2" x="24" y="382" font-size="10.5">Opus 5 at default effort wins nowhere on this plane: Opus 5 at low effort is cheaper and makes fewer of both errors.</text>
+</svg>

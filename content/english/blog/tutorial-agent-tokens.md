@@ -1,5 +1,5 @@
 ---
-title: "More Thinking Made It Worse: What I Learned Measuring What an AI Agent Actually Costs"
+title: "More Thinking Made It Worse: Measuring Cost and Accuracy Across Five Claude Configurations"
 meta_title: "Agent Token Economics"
 description: "I turned my own review paper into a citation-grounding benchmark and ran five model configurations against it. The cheapest Opus setting was also the most accurate."
 date: 2026-09-28T15:19:00Z
@@ -17,7 +17,9 @@ draft: false
 
 Advice about agent costs is everywhere and almost none of it carries a number. Cache your prompts. Use a smaller model for the easy work. Let the big model think harder when the task is hard. All of that is roughly right, and none of it tells you whether it holds on *your* workload.
 
-So I built something where every number is measurable, spent nine dollars, and measured it. One of the three headline results came out backwards from what I expected.
+So I built something where every number is measurable, spent nine dollars, and measured it. The main result came out backwards from what I expected.
+
+**What this is and isn't.** This measures a *single-call classification* over a large cached prefix: one request in, one verdict out. There is no agent loop, no growing context, no tool results, no idle gap between turns. Those are the things I originally set out to test — an agent that idles and reloads its context, an orchestrator delegating to cheaper workers — and none of them is tested here. What follows is solid for the setup described and says nothing yet about multi-turn agent architectures.
 
 # The task: check my own citations
 
@@ -92,7 +94,7 @@ All current-generation, one per price tier. Every configuration runs the identic
 | Claude Sonnet 5 | `$2` / MTok | `$10` / MTok | 1M | `low` – `max` |
 | Claude Haiku 4.5 | `$1` / MTok | `$5` / MTok | 200K | not available |
 
-Opus and Sonnet each ran twice, at default and at low reasoning effort. Haiku exposes no effort parameter, so it contributes one configuration. Five in total.
+Opus and Sonnet each ran twice, at default and at low reasoning effort. Haiku 4.5 exposes no `effort` parameter, so it contributes one configuration. It does support extended thinking through an explicit token budget, which I deliberately left disabled — the comparison I wanted was against each model's out-of-the-box behaviour, and enabling it on Haiku alone would have made the tiers less comparable rather than more. That leaves Haiku's thinking cost at zero, which is worth remembering when reading its cost breakdown.
 
 # The results
 
@@ -116,15 +118,17 @@ Opus at low effort beat Opus at default effort — **94.9% against 87.2%** — w
 
 This is not a near-miss. Of the items where the two disagreed, low effort was right on **9 and wrong on 0** (p = 0.004). Low effort got everything default got right, plus nine more.
 
-The per-tier breakdown points at a mechanism. On easy negatives — an obviously unrelated paper — low effort scored 100% and default scored 83%. Given more room to reason, the model talks itself into a connection. It constructs a plausible-sounding bridge between a claim about signed networks and a paper about animal behaviour, and then believes it. Less thinking left less room to rationalise.
+The per-tier breakdown is *consistent with* a specific mechanism, though I have not verified it. On easy negatives — an obviously unrelated paper — low effort scored 100% and default scored 83%. The natural reading is that given more room to reason, the model talks itself into a connection: it builds a plausible bridge between a claim about signed networks and a paper about animal behaviour, then accepts it. That is a hypothesis, not a finding. Confirming it means reading the model's stated reasoning on those nine items, which I did not capture in this run.
 
 I would not have predicted this, and I would not have found it without a hard negative tier to expose it.
 
-## But effort is model-specific, not a universal setting
+## Effort may be model-specific — but this one doesn't survive correction
 
-Sonnet went the other way. Default effort scored 79.5%, low effort 68.4%, and the difference is significant (p = 0.035). At low effort Sonnet collapses on negatives: 55% on easy ones, **38% on hard ones** — worse than a coin flip.
+Sonnet went the other way. Default effort scored 79.5%, low effort 68.4%, raw p = 0.035. At low effort Sonnet collapses on negatives: 55% on easy ones, **38% on hard ones** — worse than a coin flip.
 
-So "lower the effort to save money" is not a portable recommendation. On the same task, in the same week, with the same prompt, it was a clear win on one model and a clear loss on the tier below.
+But I ran six paired comparisons on one dataset, and under Holm-Bonferroni that result lands at **p = 0.105 and does not survive**. The three Opus-low comparisons do survive correction; this one does not.
+
+So the honest statement is narrower than I first wrote it: the direction is suggestive and the effect size is large, but on a single run of 117 items I cannot claim the Sonnet effort difference is real. Settling it means replicates — about a dollar each — and this study has none. That is a gap against my own plan, which called for repeat runs.
 
 ## Aggregate accuracy hides opposite failure modes
 
@@ -136,6 +140,32 @@ Haiku and Sonnet-at-low-effort land 8 points apart overall, but they fail in mir
 | Sonnet 5, low | 90% | 55% | 38% |
 
 Haiku is sceptical — it rejects citations that are actually fine. Sonnet at low effort is credulous — it accepts almost anything. Both are "about 70–77% accurate" and they would fail a real citation-checking job in completely different directions. A single accuracy number would have hidden that entirely.
+
+## Which means "cost per correct answer" is the wrong ranking
+
+For a citation checker the two errors are not worth the same. Waving through a bad citation puts an error into a published paper. Rejecting a good one wastes a few minutes of review. Treating them as equal is what lets Haiku look like the efficiency winner.
+
+| Configuration | False accepts | False rejects |
+|---|---|---|
+| Opus 5, low | 5.2% | 5.1% |
+| Haiku 4.5 | 10.3% | **35.6%** |
+| Sonnet 5, default | 27.6% | 13.6% |
+| Opus 5, default | 17.2% | 8.5% |
+| Sonnet 5, low | **53.4%** | 10.2% |
+
+Weight a false accept at five times a false reject — an arbitrary but defensible ratio for this job — and the ranking moves. Opus at low effort scores 99 of a possible 117. Haiku drops to 66, because it rejects a third of my perfectly good citations. **Sonnet at low effort goes net negative**: it admits more bad citations than it catches, so running it is worse than not checking at all.
+
+The cheapest-per-correct-answer column is still Haiku. Whether that is the column you should rank on depends entirely on what an error costs you — and since total cost is linear in both error prices, you can just draw the whole decision space:
+
+![Which configuration is cheapest, once errors have a price](/images/token-error-cost-regions.svg)
+
+Total cost is `model price + false_accepts × x + false_rejects × y`, so each configuration is a plane over the two error prices and the boundaries between them are straight lines. Three things fall out.
+
+**Haiku's win is smaller than it looks.** It is cheapest only inside a triangle bounded by `x + 6y = $0.77`. Put a price of one dollar on letting a bad citation through, with false rejects free, and Opus at low effort is already the cheaper option overall. If a false reject costs anything at all, the threshold drops fast: at 13 cents per false reject with free false accepts, Haiku has already lost.
+
+**Sonnet at low effort survives only in a sliver** where a false accept is essentially free — which, for a citation checker, is not a real operating point.
+
+**Opus at default effort wins nowhere.** Not at any pair of error prices. Opus at low effort is cheaper *and* makes fewer of both error types, so it dominates for every possible weighting. That is a stronger claim than the equal-weight ranking supports, and it is the one result here I would bet on.
 
 ## Two of five configurations are strictly dominated
 
@@ -190,6 +220,10 @@ Then four canary runs, about 85 cents total, checked the forecast against realit
 
 # What this doesn't tell you
 
+**No replicates.** Each configuration ran once. My own plan called for repeat runs and this study has none, which is why the Sonnet effort result stays a hypothesis. The Opus result — 9 to 0 on discordant items, surviving correction — is too lopsided to be a fluke, but "surviving correction on one run" is weaker than "reproduced."
+
+**No agent loop.** Single call in, single verdict out. No growing context, no tool results, no idle gaps. The architectures I originally set out to compare are all untested.
+
 **One task, one domain.** Citation verification rewards scepticism. A task rewarding fluent synthesis might reverse the effort result entirely.
 
 **117 items is enough for the tier comparisons and thin for the subgroups.** The per-difficulty cells hold 29 items each, so those intervals are wide — the direction is clear, the exact numbers are not.
@@ -198,7 +232,14 @@ Then four canary runs, about 85 cents total, checked the forecast against realit
 
 **The orchestrator question is still open.** Published measurements say a frontier-plus-cheap-workers split pays off only when the work exceeds a single context window. My 117 claims over a 37k-token bibliography fit comfortably inside a million-token window, so at this scale an orchestrator should lose. Finding the crossover means scaling to all 923 citations.
 
-That is the next run.
+# What I'd run next
+
+In order of what each would actually settle:
+
+1. **Replicate Sonnet default versus low**, three times, about a dollar each. Either the effort reversal is real or it isn't, and right now I can't say.
+2. **Capture the model's stated reasoning** on the nine items where Opus default failed and low effort succeeded. That turns the over-reasoning story from a plausible reading into evidence, or kills it.
+3. **Insert a deliberate idle gap** longer than the cache lifetime. That is the architecture I set out to test and never did.
+4. **Scale to all 923 citations**, which is the only way to reach the context-window crossover where an orchestrator could start to pay.
 
 ---
 
