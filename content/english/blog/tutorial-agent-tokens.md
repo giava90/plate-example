@@ -234,12 +234,23 @@ Then four canary runs, about 85 cents total, checked the forecast against realit
 
 # What I'd run next
 
-In order of what each would actually settle:
+In order of what each would actually settle.
 
-1. **Replicate Sonnet default versus low**, three times, about a dollar each. Either the effort reversal is real or it isn't, and right now I can't say.
-2. **Capture the model's stated reasoning** on the nine items where Opus default failed and low effort succeeded. That turns the over-reasoning story from a plausible reading into evidence, or kills it.
-3. **Insert a deliberate idle gap** longer than the cache lifetime. That is the architecture I set out to test and never did.
-4. **Scale to all 923 citations**, which is the only way to reach the context-window crossover where an orchestrator could start to pay.
+**Settle what's already published, about `$8`.** Replicate the Sonnet effort comparison three times — either the reversal is real or it isn't, and right now I can't say. And capture the model's stated reasoning on the nine items where Opus default failed and low effort succeeded, which turns the over-reasoning story into evidence or kills it.
+
+**Test the Batch API, about `$1.50`.** Everything here ran as live synchronous calls; batch never appears in this post. It offers a flat 50% discount, but it is submitted all at once, so the send-one-then-fan-out trick that produced 116 cache reads per configuration is impossible, and the docs call cache hits inside a concurrent batch best-effort. Since cache reads *are* 71–88% of the bill, the two outcomes are far apart:
+
+| Opus 5, low effort, 117 items | |
+|---|---|
+| Live, cached (measured) | `$2.68` |
+| Batch, if cache reads land | ~`$1.34` |
+| Batch, if every item re-reads the prefix | ~`$10.90` |
+
+Batch is either the best lever here or a 4× regression, and nothing I ran distinguishes them.
+
+**Run the idle-then-reload scenario, about `$5`.** Everything above ran against a warm cache. An agent that goes idle long enough for the cache to lapse, and has to re-import its context, is the scenario that started this project, and it is still untested. Four arms — idle, kept warm by real work, kept warm by a `max_tokens: 0` ping, and a one-hour cache — differing only in what happens in the gaps.
+
+**Find the orchestrator crossover, `$20–50`.** With a caveat I got wrong at first: scaling to all 923 citations does *not* force decomposition. 923 claims plus a 37k bibliography is about 132k tokens, comfortably inside a million-token window. Forcing the issue needs full paper texts rather than abstracts — roughly 3.1M tokens — which is what makes chunking unavoidable and gives an orchestrator something to orchestrate. That is the second of the two questions this project was built to answer, and the one I haven't started.
 
 ---
 
