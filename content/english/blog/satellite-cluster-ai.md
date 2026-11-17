@@ -3,7 +3,7 @@ title: "Keeping a large AI model running on a satellite cluster"
 meta_title: "AI model on a satellite cluster"
 description: "A network model of an 81-satellite cluster aged over five years: where model stages sit matters more than how lasers are pointed, letting satellites switch stage lifts output from 88% to 94%, and weights should be copied from neighbours, not the ground."
 date: 2026-11-17T12:00:00Z
-image: "images/satellite-cluster-stage-placement.png"
+image: "images/satellite-cluster-cover.png"
 authors: ["Giacomo Vaccario"]
 tags:
 - "Machine Learning"
@@ -39,9 +39,9 @@ This raised five-year output from 88% to 94% of what the surviving hardware coul
 
 *Figure: How the stage-switching rule works, on illustrative numbers. Each block is one surviving satellite, and its height is the capacity it has left after chip failures. Every query passes through all nine stages, so the cluster runs at the speed of its weakest stage. Capacity above that level sits idle. Moving one satellite from the strongest to the weakest stage lifts the whole cluster.* -->
 
-![Two 9×9 grids of satellites, one column per model stage. Each satellite has a ring showing its remaining capacity. Before: stage 5 has lost two satellites and is the weakest, with 3.75. Stage 6, next to it, has 7.5 and gives one satellite. Stage 2 has even more spare capacity but is further away. After: the satellite in column 6 now holds stage 5, which rises to 4.75.](/images/satellite-cluster-stage-switch.png)
+![Two 9×9 grids of satellites, one column per model stage, with a ring around each satellite showing its remaining capacity. Before: stage 5 is the lowest at 3.75 and stage 2 the strongest at 8.25. After the first step of the chain rule, one satellite each passes from stage 4 to 5, from 3 to 4 and from 2 to 3, so stage 5 rises to 4.75 and stage 2 falls to 7.25.](/images/satellite-cluster-stage-switch.png)
 <!-- 
-*Figure: The same switch on the cluster itself, on illustrative numbers. The ring around each satellite shows how much capacity it has left, and a full ring means all 32 chips work. Stage 5 has lost two satellites and limits the cluster. The satellite that switches comes from stage 6, the closest stage with spare capacity, rather than from stage 2, which has more spare but is further away. It does not move. It loads the stage-5 weights from a neighbour over the laser link and keeps its position, so it stays close to the rest of stage 5.* -->
+*Figure: The chain rule on the cluster itself, on illustrative numbers. The ring around each satellite shows the share of its 32 chips that still work. The strongest stage, stage 2, is the donor, but its satellite does not jump straight to stage 5. Instead, one satellite each passes from stage 4 to 5, from 3 to 4 and from 2 to 3, so every stage stays in neighbouring columns. Each switching satellite stays in place and copies its new weights from a neighbour. The rule repeats until no two stages differ by more than one satellite.* -->
 
 **Third, a satellite that switches stage should copy the new weights from a neighbour.** From the ground, 100 GB over a 200 Mbps radio link, available 5% of the time, takes about 22 hours. From a neighbour over a 10 Tbps laser link, the order of magnitude targeted in Google's design [[3]](https://arxiv.org/abs/2511.19468), it takes less than a tenth of a second. In other words, the ground link can be kept for new model versions.
 
